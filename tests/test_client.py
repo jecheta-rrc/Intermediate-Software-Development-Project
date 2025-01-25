@@ -91,7 +91,20 @@ class TestClient(unittest.TestCase):
         actual = client.email_address
         self.assertEqual(expected, actual)
 
-    
+    def test_client_number_accessor(self):
+        # Arrange
+        client_number = 1010
+        first_name = "Tehila"
+        last_name = "Akpabio"
+        email_address = "tehila.akpabio@example.com"
+        client = Client(client_number, first_name, last_name, email_address)
+
+        # Act
+        result = client.client_number
+
+        # Assert
+        self.assertEqual(result, client_number)
+
 
 if __name__ == "__main__":
     unittest.main()
