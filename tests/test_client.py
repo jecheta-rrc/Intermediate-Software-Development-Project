@@ -45,5 +45,20 @@ class TestClient(unittest.TestCase):
         expected_message = "Client number must be an integer."
         self.assertEqual(str(context.exception), expected_message)
 
+    def test_init_blank_first_name_raises_exception(self):
+        # Arrange
+        client_number = 1010
+        first_name = "   "  # Blank after stripping whitespace
+        last_name = "Akpabio"
+        email_address = "test@example.com"
+
+        # Act
+        with self.assertRaises(ValueError) as context:
+            Client(client_number, first_name, last_name, email_address)
+        
+        #Assert
+        expected_message = "First name cannot be blank."
+        self.assertEqual(str(context.exception), expected_message)
+
 if __name__ == "__main__":
     unittest.main()
