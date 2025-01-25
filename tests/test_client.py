@@ -117,6 +117,19 @@ class TestClient(unittest.TestCase):
         # Assert
         self.assertEqual(expected, actual)
 
+    def test_last_name_accessor(self):
+        # Arrange
+        client = Client(client_number=102, first_name="Tehila", 
+        last_name="Akpabio", email_address="tehila@example.com")
+    
+        # Act
+        actual_last_name = client.last_name
+    
+        # Assert
+        expected_last_name = "Akpabio"
+        self.assertEqual(expected_last_name, actual_last_name)
+
+
 
 
 if __name__ == "__main__":
