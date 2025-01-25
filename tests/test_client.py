@@ -48,7 +48,7 @@ class TestClient(unittest.TestCase):
     def test_init_blank_first_name_raises_exception(self):
         # Arrange
         client_number = 1010
-        first_name = "   "  # Blank after stripping whitespace
+        first_name = "   " 
         last_name = "Akpabio"
         email_address = "test@example.com"
 
@@ -56,9 +56,42 @@ class TestClient(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             Client(client_number, first_name, last_name, email_address)
         
-        #Assert
+        # Assert
         expected_message = "First name cannot be blank."
         self.assertEqual(str(context.exception), expected_message)
+
+    def test_init_blank_last_name_raises_exception(self):
+        # Arrange
+        client_number = 1010
+        first_name = "Tehila"
+        last_name = " "  
+        email_address = "tehila@example.com"
+    
+        # Act
+        with self.assertRaises(ValueError) as context:
+            Client(client_number, first_name, last_name, email_address)
+    
+        # Assert
+        expected = "Last name cannot be blank."
+        actual = str(context.exception)
+        self.assertEqual(expected, actual)
+
+    def test_init_invalid_email_sets_default_value(self):
+        # Arrange
+        client_number = 1010
+        first_name = "Tehila"
+        last_name = "Akpabio"
+        invalid_email_address = "invalid-email" 
+
+        # Act
+        client = Client(client_number, first_name, last_name, invalid_email_address)
+
+        # Assert
+        expected = "email@pixell-river.com"
+        actual = client.email_address
+        self.assertEqual(expected, actual)
+
+    
 
 if __name__ == "__main__":
     unittest.main()
