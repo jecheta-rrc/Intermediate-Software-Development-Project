@@ -129,6 +129,19 @@ class TestClient(unittest.TestCase):
         expected_last_name = "Akpabio"
         self.assertEqual(expected_last_name, actual_last_name)
 
+    def test_email_address_property(self):
+        # Arrange
+        client_number = 1001
+        first_name = "Tehila"
+        last_name = "Akpabio"
+        email_address = "tehila@example.com"
+    
+        # Act
+        client = Client(client_number, first_name, last_name, email_address)
+        result = client.email_address
+
+        # Assert
+        self.assertEqual(result, email_address)
 
 
 
