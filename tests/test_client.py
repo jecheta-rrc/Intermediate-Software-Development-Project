@@ -30,5 +30,20 @@ class TestClient(unittest.TestCase):
         self.assertEqual(client.last_name, last_name)
         self.assertEqual(client.email_address, email_address)
 
+    def test_invalid_client_number_raises_exception(self):
+        # Arrange
+        client_number = "invalid"
+        first_name = "Tehila"
+        last_name = "Akpabio"
+        email_address = "tehila.akpabio@example.com"
+    
+        # Act
+        with self.assertRaises(ValueError) as context:
+            Client(client_number, first_name, last_name, email_address)
+    
+        # Assert
+        expected_message = "Client number must be an integer."
+        self.assertEqual(str(context.exception), expected_message)
+
 if __name__ == "__main__":
     unittest.main()
