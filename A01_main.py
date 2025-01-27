@@ -1,5 +1,4 @@
-"""
-A client program written to verify correctness of the BankAccount and Client 
+"""A client program written to verify correctness of the BankAccount and Client 
 classes.
 """
 
@@ -9,7 +8,6 @@ __credits__ = "Nkechi Echeta"
 
 from bank_account.bank_account import BankAccount
 from client.client import Client
-
 
 def main():
     """Test the functionality of the methods encapsulated in the BankAccount and 
@@ -25,13 +23,15 @@ def main():
     bank_account = None
 
     try:
-        bank_account = BankAccount(account_number=1, client_number=client.client_number, balance=1000.50)
+        bank_account = BankAccount(account_number=1, client_number=client.client_number, 
+        balance=1000.50)
         print("BankAccount created successfully.")
     except Exception as e:
         print(f"Error creating BankAccount: {e}")
 
     try:
-        invalid_bank_account = BankAccount(account_number=2, client_number=client.client_number, balance="invalid_balance")
+        invalid_bank_account = BankAccount(account_number=2, 
+        client_number=client.client_number, balance="invalid_balance")
     except Exception as e:
         print(f"Error creating BankAccount with invalid balance: {e}")
 

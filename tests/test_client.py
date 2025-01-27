@@ -1,4 +1,5 @@
 """Unit tests for the Client class.
+
 Usage: To execute all tests in the terminal execute 
 the following command:
     python -m unittest tests/test_client.py
@@ -37,9 +38,11 @@ class TestClient(unittest.TestCase):
         last_name = "Clark"
         email_address = "susanclark@pixell.com"
 
-        # Act & Assert
+        # Act
         with self.assertRaises(ValueError) as context:
             Client(client_number, first_name, last_name, email_address)
+
+        # Assert
         expected_message = "Client number must be an integer."
         self.assertEqual(str(context.exception), expected_message)
 
