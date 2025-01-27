@@ -14,7 +14,7 @@ Assignment 1: Bank Account Management and this assignment involves creating clas
 
 Encapsulation in the BankAccount and Transaction classes was achieved as follows:
 
-- Key attributes like _account_number, _balance, and _client_number were made private using a single underscore prefix to restrict direct access.
+- Key attributes like _account_number, _balance, and_client_number were made private using a single underscore prefix to restrict direct access.
 - Getter methods (@property) were used to retrieve private attributes, while public methods like deposit() and withdraw() controlled modifications.
 - Validation logic in methods ensured data integrity by rejecting invalid inputs, such as negative deposits or withdrawals exceeding the balance.
 - By encapsulating functionality within class methods, external code interacts with these classes only through predefined interfaces, ensuring data security and consistency.
