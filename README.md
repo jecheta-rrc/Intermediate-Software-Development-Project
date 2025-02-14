@@ -9,6 +9,7 @@ Nkechi Echeta
 ## Assignment
 
 Assignment 1: Bank Account Management and this assignment involves creating classes and testing for managing a bank account and its associated operations.
+Assignment 2: [Indicate the name and description of the current assignment]
 
 ## Encapsulation
 
@@ -18,3 +19,4 @@ Encapsulation in the BankAccount and Transaction classes was achieved as follows
 - Getter methods (@property) were used to retrieve private attributes, while public methods like deposit() and withdraw() controlled modifications.
 - Validation logic in methods ensured data integrity by rejecting invalid inputs, such as negative deposits or withdrawals exceeding the balance.
 - By encapsulating functionality within class methods, external code interacts with these classes only through predefined interfaces, ensuring data security and consistency.
+  
