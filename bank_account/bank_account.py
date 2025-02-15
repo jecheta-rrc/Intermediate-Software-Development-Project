@@ -14,12 +14,13 @@ class BankAccount(ABC):
     @abstractmethod
     def __init__(self, account_number: int, client_number: int, 
                  balance: float, 
-                 date_created: date):
+                 date_created: date) -> None:
         """Initializes a new BankAccount instance.
  
         Args:
             account_number (int): The account number of the bank account.
-            client_number (int): The client number associated with the account holder.
+            client_number (int): The client number associated with the account 
+                holder.
             balance (float): The initial balance of the account.
             date_created (str): This represents the date the account was created. 
  
@@ -63,6 +64,7 @@ class BankAccount(ABC):
         Returns: 
             int: the client number
         """
+        
         return self._client_number
  
     @property
@@ -90,10 +92,11 @@ class BankAccount(ABC):
 
         if amount < 0:
             raise ValueError(f"Deposit amount: ${amount: .2f} must be positive.")
+
+        self._balance += amount
  
     def deposit(self, amount: float) -> None:
-        """
-        Deposits the given amount into the account.
+        """Deposits the given amount into the account.
  
         Args:
             amount (float): The amount to deposit.
@@ -112,9 +115,8 @@ class BankAccount(ABC):
  
         self.update_balance(amount)
  
-    def withdraw(self, amount: Union[float, str]) -> None:
-        """
-        Withdraws the given amount from the account.
+    def withdraw(self, amount: float) -> None:
+        """Withdraws the given amount from the account.
  
         Args:
             amount (float): The amount to withdraw.
@@ -144,8 +146,8 @@ class BankAccount(ABC):
         self.update_balance(-amount)
  
     def __str__(self) -> str:
-        """
-        Returns a string representation of the BankAccount instance.
+        """Returns a string representation of the BankAccount instance.
+        
         Returns:
             str: A formatted string showing the account number and balance.
         """

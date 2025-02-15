@@ -1,14 +1,18 @@
-"""TODO"""
+"""A class representimg a chequing account""" 
+
+__author__ = "Nkechi Echeta"
+__version__ = "1.1.0"
+__credits__ = "Nkechi Echeta"
 
 from bank_account.bank_account import BankAccount
 from datetime import date
 
 class ChequingAccount(BankAccount):
-    """TODO"""
+    """A class representing a chequing account."""
 
     def __init__(self, account_number: int, client_number: int, balance: float, 
                 date_created: date, overdraft_limit: float, overdraft_rate: float):
-        """TODO"""
+        """Ini """
 
         super().__init__(account_number, client_number, balance, date_created)
 
