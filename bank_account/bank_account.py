@@ -102,7 +102,8 @@ class BankAccount(ABC):
             amount (float): The amount to deposit.
  
         Raises:
-            ValueError: If the amount is not numeric or is less than or equal to zero.
+            ValueError: If the amount is not numeric or is less than or equal to
+            zero.
         """
         try:
             amount = float(amount)
