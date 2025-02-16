@@ -16,23 +16,21 @@ class BankAccount(ABC):
         """Initializes a new instance of the BankAccount class.
         
         Args:
-            account_number (int): an integer value representing the 
-                account number.
-            client_number (int): an integer value representing the 
-                client number.
-            balance (float): a float value representing the balance of 
-                the account.
+            account_number (int): an integer value representing the account 
+                number.
+            client_number (int): an integer value representing the client 
+                number.
+            balance (float): a float value representing the balance of the 
+                account.
             date_created (str): a string value representing the date the 
                 account was created.
             
         Raises:
             ValueError: if the account number or client number is 
-                not an integer.
-            ValueError: if the balance is not a number.
-            ValueError: if the date is not an instance of the date class.
+                not an integer, or if the balance is not a number, or if the 
+                date is not an instance of the date class.
         """
         
-        # The base service charge for the account.
         self.BASE_SERVICE_CHARGE = 0.50
 
         if not isinstance(account_number, int):
@@ -142,7 +140,7 @@ class BankAccount(ABC):
         self.update_balance(-amount)
 
     def __str__(self) -> str:
-        """"return a string representation of the BankAccount object.
+        """"returns a string representation of the BankAccount object.
         
         Returns:
             str: a string representation of the BankAccount object.

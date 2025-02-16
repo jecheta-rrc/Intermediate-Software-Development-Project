@@ -22,30 +22,38 @@ class InvestmentAccount(BankAccount):
         client_number (int): The client number.
         balance (float): The initial balance of the account.
         date_created (date): The date when the account was created.
-        management_fee: The management fee (validated as a float or default to 2.55).
+        management_fee: The management fee (validated as a float or default 
+            to 2.55).
         
         Raises:
-            ValueError: If the account number or client number is not an integer.
-            ValueError: If the balance is not a number.
-            ValueError: If the date is not an instance of the date class.
+            ValueError: If the account number or client number is not an integer,
+                or if the balance is not a number, or if the date is not an 
+                instance of the date class.
         """
+        
         super().__init__(account_number, client_number, balance, date_created)
     
         try:
             self.__management_fee = float(management_fee)
         except (ValueError, TypeError):
-            self.__management_fee = 2.55  # Default value if invalid
+            self.__management_fee = 2.55
 
     @property
     def management_fee(self) -> float:
-        """Return the management fee."""
+        """Returns the management fee.
+        
+        Returns:
+            float: The management fee.
+        """
+
         return self.__management_fee
 
     def __str__(self) -> str:
-        """Return a string representation of the investment account.
+        """Returns a string representation of the investment account.
     
         Returns:
-            str: A summary of account details including the management fee and account type.
+            str: A summary of account details including the management fee and 
+                account type.
         """
     
         base_str = super().__str__()
@@ -58,10 +66,10 @@ class InvestmentAccount(BankAccount):
             return base_str + "\nManagement Fee: Waived\nAccount Type: Investment"
 
     def get_service_charge(self) -> float:
-        """Return the service charge based on account age.
+        """Returns the service charge based on account age.
       
         Returns:
-        float: The calculated service charge.
+            float: The calculated service charge.
         """
       
         if self._date_created <= self.TEN_YEARS_AGO:

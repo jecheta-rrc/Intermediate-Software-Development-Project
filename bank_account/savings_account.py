@@ -24,9 +24,9 @@ class SavingsAccount(BankAccount):
                 default to 50.00).
         
         Raises:
-            ValueError: if the account number or client number is not an integer.
-            ValueError: if the balance is not a number.
-            ValueError: if the date is not an instance of the date class.
+            ValueError: if the account number or client number is not an integer,
+                or if the balance is not a number, or if the date is not an 
+                instance of the date class.
         """
     
         super().__init__(account_number, client_number, balance, date_created)
@@ -38,7 +38,7 @@ class SavingsAccount(BankAccount):
 
     @property
     def minimum_balance(self) -> float:
-        """Return the minimum balance.
+        """Returns the minimum balance.
     
         Returns:
             float: The minimum balance of the savings account.
@@ -47,7 +47,7 @@ class SavingsAccount(BankAccount):
         return self.__minimum_balance
 
     def __str__(self) -> str:
-        """Return a string representation of the savings account.
+        """Returns a string representation of the savings account.
     
         Returns:
             str: The string representation of the savings account.
@@ -60,7 +60,7 @@ class SavingsAccount(BankAccount):
                 "Account Type: Savings")
 
     def get_service_charge(self) -> float:
-        """Return the service charge based on balance and minimum balance.
+        """Returns the service charge based on balance and minimum balance.
     
         Returns:
             float: The calculated service charge for the account.

@@ -1,8 +1,7 @@
-"""A class representimg a chequing account""" 
+"""A class representing a chequing account""" 
 
 __author__ = "Nkechi Echeta"
-__version__ = "1.1.0"
-__credits__ = "Nkechi Echeta"
+__version__ = "1.0.0"
 
 from bank_account.bank_account import BankAccount
 from datetime import date
@@ -29,9 +28,8 @@ class ChequingAccount(BankAccount):
         
         Raises:
             ValueError: If overdraft_limit or overdraft_rate cannot be converted 
-            to float.
+                to float, or if date_created is not an instance of the date class.
             TypeError: If overdraft_limit or overdraft_rate is not a number.
-            ValueError: If date_created is not an instance of the date class.
         """
       
         super().__init__(account_number, client_number, balance, date_created)
@@ -48,23 +46,42 @@ class ChequingAccount(BankAccount):
 
     @property
     def overdraft_limit(self) -> float:
-        """Return the overdraft limit."""
+        """Returns the overdraft limit.
+        
+        Returns:
+            float: The overdraft limit.
+        """
+        
         return self.__overdraft_limit
 
     @property
     def overdraft_rate(self) -> float:
-        """Return the overdraft rate."""
+        """Returns the overdraft rate.
+        
+        Returns:
+            float: The overdraft rate.
+        """
+        
         return self.__overdraft_rate
 
     def __str__(self) -> str:
-        """Return a string representation of the chequing account."""
+        """Returns a string representation of the chequing account.
+        
+        Returns:
+            str: A formatted string with account details.
+        """
+        
         return (super().__str__() +
                 f"\nOverdraft Limit: ${self.__overdraft_limit:.2f} "
                 f"\nOverdraft Rate: {self.__overdraft_rate * 100:.2f}% "
                 f"\nAccount Type: Chequing")
 
     def get_service_charge(self) -> float:
-        """Return the service charge based on the overdraft limit and rate."""
+        """Returns the service charge based on the overdraft limit and rate.
+        
+        Return:
+            float: The service charge was applied to the account.
+        """
     
         if self.balance >= -self.__overdraft_limit:
             return self.BASE_SERVICE_CHARGE
