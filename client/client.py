@@ -22,9 +22,8 @@ class Client:
             email_address (str): The email address of the client.
 
         Raises:
-            ValueError: If client_number is not an integer.
-            ValueError: If first_name or last_name is blank after stripping 
-            whitespace.
+            ValueError: If client_number is not an integer, or if first_name, or 
+            last_name is blank after stripping whitespace.
         """
 
         if not isinstance(client_number, int):
@@ -49,25 +48,54 @@ class Client:
 
     @property
     def client_number(self) -> int:
-        """Return the client number."""
+        """Returns the client number.
+        
+        Returns:
+            int: The client number.
+        """
+
         return self._client_number
 
     @property
     def first_name(self) -> str:
-        """Return the first name."""
+        """Returns the first name.
+        
+        Returns:
+            str: The first name.
+        """
+
         return self._first_name
 
     @property
     def last_name(self) -> str:
-        """Return the last name."""
+        """Returns the last name.
+        
+        Returns:
+            str: The last name.
+        """
+
         return self._last_name
 
     @property
     def email_address(self) -> str:
-        """Return the email address."""
+        """Returns the email address.
+        
+        Returns:
+            str: The email address.
+        """
+
         return self._email_address
 
     def __str__(self) -> str:
-        """Return a string representation of the Client."""
-        return f"{self.last_name}, {self.first_name} [{self.client_number}] - {self.email_address}"
+        """Returns a string representation of the Client.
+        
+        Returns:
+            str: A formatted string containing the client's last name, first 
+                name, client address, and email address.
+        """
+        
+        return (
+            f"{self.last_name}, {self.first_name} "
+            f"[{self.client_number}] - {self.email_address}"
+        )
    
