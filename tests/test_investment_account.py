@@ -1,71 +1,104 @@
-"""This module defines the InvestmentAccount class."""
+"""This module defines the TestInvestmentAccount class.
+
+Usage:
+  To execute all tests in the terminal execute the following command:
+  
+  $ python -m unittest tests/test_investment_account.py
+"""
 
 __author__ = "Nkechi Echeta"
-__version__ = "1.1.2025"
+__version__ = "1.1.0"
 __credits__ = "ACE Faculty"
 
+import unittest
 from datetime import date, timedelta
-from bank_account.bank_account import BankAccount
+from bank_account.investment_account import InvestmentAccount
 
-class InvestmentAccount(BankAccount):
-    """Represents an investment account, a specialized type of BankAccount."""
+class TestInvestmentAccount(unittest.TestCase):
+  """Tests the InvestmentAccount class."""
 
-    TEN_YEARS_AGO = date.today() - timedelta(days=365.25 * 10)
-    BASE_SERVICE_CHARGE = 0.50
+  def setUp(self):
+    # Arrange
+    self.account_number = 123456
+    self.client_number = 654321
+    self.balance = 1000.0
+    self.management_fee = 50.0
 
-  def __init__(self, account_number: int, client_number: int, balance: float, 
-              date_created: date, management_fee):
-    """Initializes a new instance of the InvestmentAccount class.
-
-    Args:
-      account_number (int): The account number.
-      client_number (int): The client number.
-      balance (float): The initial balance of the account.
-      date_created (date): The date when the account was created.
-      management_fee: The management fee (validated as a float or default to 2.55).
-        
-    Raises:
-      ValueError: If the account number or client number is not an integer.
-      ValueError: If the balance is not a number.
-      ValueError: If the date is not an instance of the date class.
-    """
-    super().__init__(account_number, client_number, balance, date_created)
+  def test_attributes_set_to_parameter_values(self):
+    # Arrange
+    ten_years_ago = date.today() - timedelta(days=10 * 365.25)
+    account = InvestmentAccount(self.account_number, 
+                                self.client_number, self.balance, 
+                                ten_years_ago, self.management_fee)
     
-    # Validate management_fee
-    try:
-      self.__management_fee = float(management_fee)
-    except (ValueError, TypeError):
-      self.__management_fee = 2.55  # Default value if invalid
+    # Assert
+    self.assertEqual(account.account_number, self.account_number)
+    self.assertEqual(account.client_number, self.client_number)
+    self.assertEqual(account.balance, self.balance)
+    self.assertEqual(account.management_fee, self.management_fee)
 
-  @property
-  def management_fee(self) -> float:
-    """Return the management fee."""
-    return self.__management_fee
+  def test_management_fee_invalid_type(self):
+    # Arrange
+    ten_years_ago = date.today() - timedelta(days=10 * 365.25)
+    
+    # Act
+    account = InvestmentAccount(self.account_number, self.client_number, 
+                                self.balance, ten_years_ago, "invalid_fee")
+    
+    # Assert
+    self.assertEqual(account.management_fee, 2.55)
 
-  def __str__(self) -> str:
-    """Return a string representation of the investment account.
+  def test_date_created_more_than_10_years_ago(self):
+    # Arrange
+    more_than_ten_years_ago = date.today() - timedelta(days=11 * 365.25)
     
-    Returns:
-      str: A summary of account details including the management fee and account type.
-    """
+    # Act
+    account = InvestmentAccount(self.account_number, self.client_number, 
+                                self.balance, more_than_ten_years_ago, 
+                                self.management_fee)
     
-    base_str = super().__str__()
-    
-    if self._date_created > self.TEN_YEARS_AGO:
-      return (base_str +
-              f"\nManagement Fee: ${self.__management_fee:.2f}" +
-              "\nAccount Type: Investment")
-    else:
-      return base_str + "\nManagement Fee: Waived\nAccount Type: Investment"
+    # Assert
+    self.assertTrue(account._date_created <= account.TEN_YEARS_AGO)
 
-  def get_service_charge(self) -> float:
-      """Return the service charge based on account age.
-      
-      Returns:
-        float: The calculated service charge.
-      """
-      
-      if self._date_created <= self.TEN_YEARS_AGO:
-        return self.BASE_SERVICE_CHARGE
-      else:
-        return self.BASE_SERVICE_CHARGE + self.__management_fee
+  def test_date_created_within_last_10_years(self):
+    # Arrange
+    within_last_ten_years = date.today() - timedelta(days=5 * 365.25)
+    
+    # Act
+    account = InvestmentAccount(self.account_number, self.client_number, 
+                                self.balance, within_last_ten_years, 
+                                self.management_fee)
+    
+    # Assert
+    self.assertTrue(account._date_created > account.TEN_YEARS_AGO)
+
+  def test_displays_waived_management_fee_when_date_created_more_than_10_years_ago(self):
+    # Arrange
+    more_than_ten_years_ago = date.today() - timedelta(days=11 * 365.25)
+    
+    # Act
+    account = InvestmentAccount(self.account_number, self.client_number, 
+                                self.balance, more_than_ten_years_ago, 
+                                self.management_fee)
+    result = str(account)
+    
+    # Assert
+    self.assertIn("Management Fee: Waived", result)
+
+  def test_displays_management_fee_when_date_created_within_last_10_years(self):
+    # Arrange
+    within_last_ten_years = date.today() - timedelta(days=5 * 365.25)
+    
+    # Act
+    account = InvestmentAccount(self.account_number, self.client_number, 
+                                self.balance, within_last_ten_years, 
+                                self.management_fee)
+    result = str(account)
+    
+    # Assert
+    self.assertIn(f"Management Fee: ${self.management_fee:.2f}", result)
+
+if __name__ == '__main__':
+  unittest.main()
+
+
