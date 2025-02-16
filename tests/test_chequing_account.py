@@ -70,7 +70,7 @@ class TestChequingAccount(unittest.TestCase):
     
     def test_get_service_charge_balance_at_overdraft_limit(self):
         # Arrange
-        self.account._BankAccount__balance = -self.overdraft_limit  
+        self.account._BankAccount__balance = -self.overdraft_limit 
     
         # Act
         expected_charge = ChequingAccount.BASE_SERVICE_CHARGE + ((self.overdraft_limit - 

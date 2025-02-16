@@ -34,7 +34,7 @@ class SavingsAccount(BankAccount):
         try:
             self.__minimum_balance = float(minimum_balance)
         except (ValueError, TypeError):
-            self.__minimum_balance = 50.00  # Default value if invalid
+            self.__minimum_balance = 50.00
 
     @property
     def minimum_balance(self) -> float:
