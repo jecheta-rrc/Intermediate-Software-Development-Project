@@ -10,8 +10,8 @@ class ManagementFeeStrategy(ServiceChargeStrategy):
     TEN_YEARS_AGO = date.today() - timedelta(days=10 * 365.25)
 
     def __init__(self, date_created: date, management_fee: float) -> None:
-        """Initializes the ManagementFeeStrategy with account creation date 
-        and management fee.
+        """Initializes the ManagementFeeStrategy with account creation date and 
+        management fee.
 
         Args:
             date_created (date): The date the account was created.
@@ -35,3 +35,4 @@ class ManagementFeeStrategy(ServiceChargeStrategy):
             return self.BASE_SERVICE_CHARGE + self._management_fee
 
         return self.BASE_SERVICE_CHARGE
+        
