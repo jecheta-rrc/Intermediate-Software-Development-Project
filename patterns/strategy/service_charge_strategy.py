@@ -20,4 +20,5 @@ class ServiceChargeStrategy(ABC):
         Returns:
             float: The calculated service charge amount.
         """
+        
         pass

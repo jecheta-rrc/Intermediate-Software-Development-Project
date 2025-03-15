@@ -5,11 +5,10 @@ __version__ = "1.0.0"
 
 from bank_account.bank_account import BankAccount
 from datetime import date
+from patterns.strategy.overdraft_strategy import OverdraftStrategy
 
 class ChequingAccount(BankAccount):
-    """A class representing a chequing account."""
-
-    BASE_SERVICE_CHARGE = 0.50
+    """A class representing a chequing account with overdraft protection."""
 
     def __init__(self, account_number: int, client_number: int, 
                 balance: float, date_created: date, 
@@ -28,7 +27,8 @@ class ChequingAccount(BankAccount):
         
         Raises:
             ValueError: If overdraft_limit or overdraft_rate cannot be converted 
-                to float, or if date_created is not an instance of the date class.
+                to float, or if date_created is not an instance of the date 
+                class.
             TypeError: If overdraft_limit or overdraft_rate is not a number.
         """
       
@@ -43,6 +43,9 @@ class ChequingAccount(BankAccount):
             self.__overdraft_rate = float(overdraft_rate)
         except (ValueError, TypeError):
             self.__overdraft_rate = 0.05
+
+        self.__strategy = OverdraftStrategy(self.__overdraft_limit, 
+        self.__overdraft_rate)
 
     @property
     def overdraft_limit(self) -> float:
@@ -77,14 +80,11 @@ class ChequingAccount(BankAccount):
                 f"\nAccount Type: Chequing")
 
     def get_service_charge(self) -> float:
-        """Returns the service charge based on the overdraft limit and rate.
+        """Returns the service charge using the OverdraftStrategy.
+    
         
         Return:
             float: The service charge was applied to the account.
         """
     
-        if self.balance >= -self.__overdraft_limit:
-            return self.BASE_SERVICE_CHARGE
-        else:
-            return self.BASE_SERVICE_CHARGE + ((self.__overdraft_limit - 
-            self.balance) * self.__overdraft_rate)
+        return self.__strategy.calculate_service_charges(self)
