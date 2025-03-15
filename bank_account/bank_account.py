@@ -1,4 +1,6 @@
-"""BankAccount class implementation."""
+"""This class represents a bank account with attributes and methods for 
+managing balances, deposits, and withdrawals.
+"""
 
 __author__ = "Nkechi Echeta"
 __version__ = "1.0.0"
@@ -30,8 +32,6 @@ class BankAccount(ABC):
                 not an integer, or if the balance is not a number, or if the 
                 date is not an instance of the date class.
         """
-        
-        self.BASE_SERVICE_CHARGE = 0.50
 
         if not isinstance(account_number, int):
             raise ValueError("The account number must be an integer.")
@@ -131,7 +131,9 @@ class BankAccount(ABC):
             raise ValueError(f"Withdrawal amount: {amount} must be numeric.")
         
         if amount < 0:
-            raise ValueError(f"Withdrawal amount: ${amount:.2f} must be positive.")
+            raise ValueError(
+                f"Withdrawal amount: ${amount:.2f} must be positive."
+                )
         
         if amount > self.balance:
             raise ValueError(f"Withdrawal amount: ${amount:.2f} must not exceed" 
@@ -160,5 +162,3 @@ class BankAccount(ABC):
         """
 
         pass
-
- 
