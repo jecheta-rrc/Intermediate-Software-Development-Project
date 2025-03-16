@@ -5,14 +5,13 @@ __version__ = "1.1.0"
 __credits__ = "ACE Faculty"
 
 from bank_account.bank_account import BankAccount
+from patterns.strategy.minimum_balance_strategy import MinimumBalanceStrategy
 
 class SavingsAccount(BankAccount):
     """Represents a savings account, a specialized type of BankAccount."""
 
-    SERVICE_CHARGE_PREMIUM = 2.00 
-
     def __init__(self, account_number: int, client_number: int, balance: float, 
-                date_created, minimum_balance):
+                date_created, minimum_balance: float = 50.00):
         """Initializes a new instance of the SavingsAccount class.
 
         Args:
@@ -24,9 +23,9 @@ class SavingsAccount(BankAccount):
                 default to 50.00).
         
         Raises:
-            ValueError: if the account number or client number is not an integer,
-                or if the balance is not a number, or if the date is not an 
-                instance of the date class.
+            ValueError: if the account number or client number is not an 
+                integer, or if the balance is not a number, or if the date is 
+                not an instance of the date class.
         """
     
         super().__init__(account_number, client_number, balance, date_created)
@@ -35,6 +34,8 @@ class SavingsAccount(BankAccount):
             self.__minimum_balance = float(minimum_balance)
         except (ValueError, TypeError):
             self.__minimum_balance = 50.00
+
+        self.__strategy = MinimumBalanceStrategy(self.__minimum_balance)
 
     @property
     def minimum_balance(self) -> float:
@@ -55,7 +56,7 @@ class SavingsAccount(BankAccount):
     
         base_str = super().__str__()
     
-        return (base_str +
+        return (super().__str__() +
                 f"\nMinimum Balance: ${self.__minimum_balance:.2f} " +
                 "Account Type: Savings")
 
@@ -66,7 +67,4 @@ class SavingsAccount(BankAccount):
             float: The calculated service charge for the account.
         """
     
-        if self.balance >= self.__minimum_balance:
-            return self.BASE_SERVICE_CHARGE
-        else:
-            return self.BASE_SERVICE_CHARGE * self.SERVICE_CHARGE_PREMIUM
+        return self.__strategy.calculate_service_charges(self)  
