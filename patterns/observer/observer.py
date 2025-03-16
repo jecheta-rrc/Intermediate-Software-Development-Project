@@ -8,7 +8,8 @@ from abc import ABC, abstractmethod
 
 class Observer(ABC):
     """An abstract base class representing an observer in the Observer 
-    Pattern."""
+    Pattern.
+    """
 
     @abstractmethod
     def update(self, message: str) -> None:

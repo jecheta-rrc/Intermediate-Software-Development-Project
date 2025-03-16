@@ -10,8 +10,9 @@ from patterns.observer.observer import Observer
 from typing import List
 
 class Subject:
-    """A base class for subjects that maintain a list of observers 
-    and notify them of state changes."""
+    """A base class for subjects that maintain a list of observers and notify 
+    them of state changes.
+    """
 
     def __init__(self) -> None:
         """Initializes the subject with an empty list of observers."""
@@ -46,3 +47,4 @@ class Subject:
         
         for observer in self._observers:
             observer.update(message)
+    
