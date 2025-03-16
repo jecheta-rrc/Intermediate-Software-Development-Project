@@ -37,4 +37,3 @@ class OverdraftStrategy(ServiceChargeStrategy):
             return self.BASE_SERVICE_CHARGE + overdraft_fee
 
         return self.BASE_SERVICE_CHARGE
-
