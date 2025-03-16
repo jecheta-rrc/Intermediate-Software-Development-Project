@@ -1,6 +1,7 @@
 """Defines the MinimumBalanceStrategy class for savings account charges."""
 
 from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
+from bank_account.bank_account import BankAccount
 
 class MinimumBalanceStrategy(ServiceChargeStrategy):
     """Strategy for applying extra service charges if balance is too low."""

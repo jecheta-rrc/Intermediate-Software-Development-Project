@@ -1,7 +1,9 @@
-"""Defines the OverdraftStrategy class for overdraft service charge calculations.
+"""Defines the OverdraftStrategy class for overdraft service charge 
+calculations.
 """
 
 from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
+from bank_account.bank_account import BankAccount
 
 class OverdraftStrategy(ServiceChargeStrategy):
     """Strategy for calculating service charges based on overdraft usage."""
@@ -27,7 +29,7 @@ class OverdraftStrategy(ServiceChargeStrategy):
             float: The calculated service charge.
         """
         
-        balance = account.get_balance()
+        balance = account.get
 
         if balance < 0:
             overdraft_amount = min(abs(balance), self._overdraft_limit)

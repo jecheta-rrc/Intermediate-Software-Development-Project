@@ -8,6 +8,10 @@ from bank_account.chequing_account import ChequingAccount
 from bank_account.savings_account import SavingsAccount
 from bank_account.investment_account import InvestmentAccount 
 from datetime import date
+from patterns.strategy.minimum_balance_strategy import MinimumBalanceStrategy
+from patterns.strategy.management_fee_strategy import ManagementFeeStrategy
+from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
+from patterns.strategy.overdraft_strategy import OverdraftStrategy
 
 # 2. Create an instance of a ChequingAccount with a balance below the overdraft limit
 chequing_account = ChequingAccount(

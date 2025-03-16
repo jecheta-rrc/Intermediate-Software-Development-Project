@@ -1,6 +1,7 @@
 """Defines the ManagementFeeStrategy class for investment account charges."""
 
 from datetime import date, timedelta
+from bank_account.bank_account import BankAccount
 from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
 
 class ManagementFeeStrategy(ServiceChargeStrategy):

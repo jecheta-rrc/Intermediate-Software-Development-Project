@@ -1,7 +1,7 @@
 """A class representing a chequing account""" 
 
-__author__ = "Nkechi Echeta"
-__version__ = "1.0.0"
+_author_ = "Nkechi Echeta"
+_version_ = "1.0.0"
 
 from bank_account.bank_account import BankAccount
 from datetime import date
@@ -10,9 +10,9 @@ from patterns.strategy.overdraft_strategy import OverdraftStrategy
 class ChequingAccount(BankAccount):
     """A class representing a chequing account with overdraft protection."""
 
-    def __init__(self, account_number: int, client_number: int, 
+    def _init_(self, account_number: int, client_number: int, 
                 balance: float, date_created: date, 
-                overdraft_limit, overdraft_rate):
+                overdraft_limit: float, overdraft_rate: float):
         """Initialize a chequing account object.
     
         Args: 
@@ -32,7 +32,7 @@ class ChequingAccount(BankAccount):
             TypeError: If overdraft_limit or overdraft_rate is not a number.
         """
       
-        super().__init__(account_number, client_number, balance, date_created)
+        super()._init_(account_number, client_number, balance, date_created)
     
         try:
             self.__overdraft_limit = float(overdraft_limit)
@@ -44,7 +44,7 @@ class ChequingAccount(BankAccount):
         except (ValueError, TypeError):
             self.__overdraft_rate = 0.05
 
-        self.__strategy = OverdraftStrategy(self.__overdraft_limit, 
+        self._strategy = OverdraftStrategy(self._overdraft_limit, 
         self.__overdraft_rate)
 
     @property
@@ -67,14 +67,14 @@ class ChequingAccount(BankAccount):
         
         return self.__overdraft_rate
 
-    def __str__(self) -> str:
+    def _str_(self) -> str:
         """Returns a string representation of the chequing account.
         
         Returns:
             str: A formatted string with account details.
         """
         
-        return (super().__str__() +
+        return (super()._str_() +
                 f"\nOverdraft Limit: ${self.__overdraft_limit:.2f} "
                 f"\nOverdraft Rate: {self.__overdraft_rate * 100:.2f}% "
                 f"\nAccount Type: Chequing")
