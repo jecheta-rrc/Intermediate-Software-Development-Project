@@ -6,6 +6,7 @@ __credits__ = "ACE Faculty"
 
 from datetime import date, timedelta
 from bank_account.bank_account import BankAccount
+from patterns.strategy.management_fee_strategy import ManagementFeeStrategy
 
 class InvestmentAccount(BankAccount):
     """Represents an investment account, a specialized type of BankAccount."""
@@ -13,8 +14,10 @@ class InvestmentAccount(BankAccount):
     TEN_YEARS_AGO = date.today() - timedelta(days=365.25 * 10)
     BASE_SERVICE_CHARGE = 0.50
 
-    def __init__(self, account_number: int, client_number: int, balance: float, 
-                date_created: date, management_fee):
+    def __init__(
+        self, account_number: int, client_number: int,
+        balance: float, date_created: date, management_fee: float = 2.55
+    ):
         """Initializes a new instance of the InvestmentAccount class.
 
         Args:
@@ -26,9 +29,9 @@ class InvestmentAccount(BankAccount):
             to 2.55).
         
         Raises:
-            ValueError: If the account number or client number is not an integer,
-                or if the balance is not a number, or if the date is not an 
-                instance of the date class.
+            ValueError: If the account number or client number is not an 
+                integer,or if the balance is not a number, or if the date is not 
+                an instance of the date class.
         """
         
         super().__init__(account_number, client_number, balance, date_created)
@@ -37,6 +40,9 @@ class InvestmentAccount(BankAccount):
             self.__management_fee = float(management_fee)
         except (ValueError, TypeError):
             self.__management_fee = 2.55
+
+        self.__strategy = ManagementFeeStrategy(date_created, 
+        self.__management_fee)
 
     @property
     def management_fee(self) -> float:
@@ -56,14 +62,19 @@ class InvestmentAccount(BankAccount):
                 account type.
         """
     
-        base_str = super().__str__()
+        base_representation = super().__str__()
     
         if self._date_created > self.TEN_YEARS_AGO:
-            return (base_str +
+            return (base_representation +
                 f"\nManagement Fee: ${self.__management_fee:.2f}" +
-                "\nAccount Type: Investment")
-        else:
-            return base_str + "\nManagement Fee: Waived\nAccount Type: Investment"
+                "\nAccount Type: Investment"
+            )
+        
+        return (
+            base_representation +
+            "\nManagement Fee: Waived" +
+            "\nAccount Type: Investment"
+        )
 
     def get_service_charge(self) -> float:
         """Returns the service charge based on account age.
@@ -72,8 +83,6 @@ class InvestmentAccount(BankAccount):
             float: The calculated service charge.
         """
       
-        if self._date_created <= self.TEN_YEARS_AGO:
-            return self.BASE_SERVICE_CHARGE
-        else:
-            return self.BASE_SERVICE_CHARGE + self.__management_fee
+        return self.__strategy.calculate_service_charges(self)
+    
         
