@@ -4,9 +4,9 @@ __author__ = "Nkechi Echeta"
 __version__ = "1.1.2025"
 __credits__ = "ACE Faculty"
 
-from datetime import date, timedelta
 from bank_account.bank_account import BankAccount
 from patterns.strategy.management_fee_strategy import ManagementFeeStrategy
+from datetime import date, timedelta
 
 class InvestmentAccount(BankAccount):
     """Represents an investment account with management fees."""

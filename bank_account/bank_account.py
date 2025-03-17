@@ -38,11 +38,11 @@ class BankAccount(Subject, ABC):
                 strategy used for calculating service charges.
 
         Raises:
-            ValueError: If account_number or client_number is not an integer.
-            ValueError: If balance is not numeric.
-            ValueError: If date_created is not an instance of date.
-            ValueError: If service_charge_strategy is not a valid 
-                ServiceChargeStrategy instance.
+            ValueError: If 'account_number' or 'client_number' is not an integer.
+            ValueError: If 'balance' is not numeric.
+            ValueError: If 'date_created' is not an instance of 'date'.
+            ValueError: If 'service_charge_strategy' is not a valid 
+                'ServiceChargeStrategy' instance.
         """
         
         super().__init__()
@@ -127,7 +127,7 @@ class BankAccount(Subject, ABC):
             amount (float): The amount to be added to the account.
 
         Raises:
-            ValueError: If amount is negative or not numeric.
+            ValueError: If 'amount' is negative or not numeric.
         """
         
         if not isinstance(amount, (int, float)) or amount < 0:
@@ -146,7 +146,7 @@ class BankAccount(Subject, ABC):
             amount (float): The amount to be withdrawn from the account.
 
         Raises:
-            ValueError: If amount is negative or not numeric.
+            ValueError: If 'amount' is negative or not numeric.
             Warning: If withdrawal is skipped due to insufficient funds.
         """
 

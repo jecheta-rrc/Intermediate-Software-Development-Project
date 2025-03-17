@@ -4,8 +4,8 @@ _author_ = "Nkechi Echeta"
 _version_ = "1.0.0"
 
 from bank_account.bank_account import BankAccount
-from datetime import date
 from patterns.strategy.overdraft_strategy import OverdraftStrategy
+from datetime import date
 
 class ChequingAccount(BankAccount):
     """Represents a chequing account, which allows overdraft."""

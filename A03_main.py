@@ -1,5 +1,4 @@
-"""
-Description: A client program written to verify implementation 
+"""A client program written to verify implementation 
 of the Observer Pattern.
 """
 __author__ = "ACE Faculty"
@@ -9,24 +8,13 @@ __credits__ = ""
 # 1.  Import all BankAccount types using the bank_account package
 # Import date
 # Import Client
-from abc import ABC, abstractmethod
-from datetime import datetime, date
-from typing import TYPE_CHECKING
-from patterns.observer.subject import Subject
-from bank_account.bank_account import BankAccount
 from datetime import date
-from patterns.strategy.overdraft_strategy import OverdraftStrategy
-from datetime import date, timedelta
-from bank_account.bank_account import BankAccount
-from patterns.strategy.management_fee_strategy import ManagementFeeStrategy
-from bank_account.bank_account import BankAccount
-from patterns.strategy.minimum_balance_strategy import MinimumBalanceStrategy
-from patterns.observer.observer import Observer
-from datetime import datetime
-from utility.file_utils import simulate_send_email
+from bank_account.chequing_account import ChequingAccount
+from bank_account.savings_account import SavingsAccount
+from client.client import Client
 
 # 2. Create a Client object with data of your choice.
-client1 = Client(290128, "Tehilah", "Akpabio", "tehilah.akpabio@gmail.com")
+client1 = Client(1001, "Tehila", "Akpabio", "tehila.akpabio@example.com")
 
 # 3a. Create a ChequingAccount object with data of your choice, using the client_number 
 # of the client created in step 2.
@@ -34,7 +22,7 @@ client1 = Client(290128, "Tehilah", "Akpabio", "tehilah.akpabio@gmail.com")
 # of the client created in step 2.
 chequing_account = ChequingAccount(
     account_number=2001,
-    client_number=290128,
+    client_number=1001,
     balance=500.00,
     date_created=date(2024, 3, 16),
     overdraft_limit=-200.00,
@@ -43,11 +31,12 @@ chequing_account = ChequingAccount(
 
 savings_account = SavingsAccount(
     account_number=2002,
-    client_number=290128,
+    client_number=1001,
     balance=1500.00,
     date_created=date(2024, 3, 16),
     minimum_balance=100.00
 )
+
 
 # 4 The ChequingAccount and SavingsAccount objects are 'Subject' objects.
 # The Client object is an 'Observer' object.  
@@ -59,11 +48,11 @@ savings_account.attach(client1)
 # 5a. Create a second Client object with data of your choice.
 # 5b. Create a SavingsAccount object with data of your choice, using the client_number 
 # of the client created in this step.
-client2 = Client(290129, "Kamsi", "Akpabio", "kamsi.akpabio@gmail.com")
+client2 = Client(1002, "Jane", "Doe", "jane.doe@example.com")
 
 savings_account2 = SavingsAccount(
     account_number=2003,
-    client_number=290129,
+    client_number=1002,
     balance=700.00,
     date_created=date(2024, 3, 16),
     minimum_balance=200.00

@@ -90,6 +90,21 @@ class Client(Observer):
 
         simulate_send_email(self.email_address, subject, email_message)
 
+    def update(self, message: str) -> None:
+        """Receive notification and simulate sending an email."""
+        subject = f"ALERT: Unusual Activity: {date.today().strftime('%Y-%m-%d')}"
+        email_message = (
+        f"Notification for {self.client_number}: {self.first_name} {self.last_name}\n"
+        f"Message: {message}\n"
+        )
+
+    # Append the email notification to observer_emails.txt
+    with open("output/observer_emails.txt", "a") as file:
+        file.write(f"Subject: {subject}\n{email_message}\n{'-'*40}\n")
+    
+    print(f"Email sent to {self.email_address} - Subject: {subject}")
+
+
     def __str__(self) -> str:
         """Returns a string representation of the client.
         
