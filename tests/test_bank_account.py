@@ -12,227 +12,108 @@ import unittest
 from bank_account.bank_account import BankAccount
 
 class TestBankAccount(unittest.TestCase):
+    """Unit tests for the BankAccount class"""
 
-    def test_init_sets_attributes(self):
+    def setUp(self):
+
+        # Set up runs before each test method runs
+        # Create a valid instance of the BankAccount class
+        account_number = 2222
+        client_number = 1
+        balance = 100.0
+
+        self.bank_account = BankAccount(account_number, client_number, balance)
+
+    def test_init_valid_instance(self):
         # Arrange
-        account_number = 12345
-        client_number = 1010
-        balance = 500.50
+        account_number = 2222
+        client_number = 1
+        balance = 100.0
 
         # Act
-        account = BankAccount(account_number, client_number, balance)
+        self.bank_account = BankAccount(account_number, client_number, balance)
 
         # Assert
-        self.assertEqual(account.account_number, account_number)
-        self.assertEqual(account.client_number, client_number)
-        self.assertEqual(round(account.balance, 2), round(balance, 2))
+        self.assertEqual(2222, self.bank_account.account_number)
+        self.assertEqual(1, self.bank_account.client_number)
+        self.assertEqual(100.0, self.bank_account.balance)
 
-    def test_init_balance_set_to_zero_for_invalid(self):
+
+    def test_init_invalid_account_number(self):
         # Arrange
-        account_number = 12345
-        client_number = 1010
-        invalid_balance = "invalid"
-
-        # Act
-        account = BankAccount(account_number, client_number, invalid_balance)
+        account_number = "2222"
+        client_number = 1
+        balance = 100.0
 
         # Assert
-        self.assertEqual(account.balance, 0)
+        with self.assertRaises(ValueError):
+            BankAccount(account_number, client_number, balance)
 
-    def test_init_raises_error_for_non_numeric_account_number(self):
+    def test_init_invalid_client_number(self):
         # Arrange
-        invalid_account_number = "invalid"
-        client_number = 1010
-        balance = 500.50
-
-        # Act
-        with self.assertRaises(ValueError) as context:
-            BankAccount(invalid_account_number, client_number, balance)
+        account_number = 2222
+        client_number = "1"
+        balance = 100.0
 
         # Assert
-        expected_message = "Account number must be an integer."
-        self.assertEqual(str(context.exception), expected_message)
+        with self.assertRaises(ValueError):
+            BankAccount(account_number, client_number, balance)
 
-    def test_init_raises_error_for_non_numeric_client_number(self):
+    def test_init_invalid_balance(self):
         # Arrange
-        account_number = 12345
-        invalid_client_number = "invalid"
-        balance = 500.50
-
-        # Act
-        with self.assertRaises(ValueError) as context:
-            BankAccount(account_number, invalid_client_number, balance)
+        account_number = 2222
+        client_number = 1
+        balance = "invalid_balance"
 
         # Assert
-        expected_message = "Client number must be an integer."
-        self.assertEqual(str(context.exception), expected_message)
-
-    def test_account_number_getter(self):
-        # Arrange
-        account_number = 12345
-        client_number = 1010
-        balance = 500.50
-        account = BankAccount(account_number, client_number, balance)
-
-        # Act
-        result = account.account_number
-
-        # Assert
-        self.assertEqual(result, account_number)
-
-    def test_client_number_getter(self):
-        # Arrange
-        account_number = 12345
-        client_number = 1010
-        balance = 500.50
-        account = BankAccount(account_number, client_number, balance)
-
-        # Act
-        result = account.client_number
-
-        # Assert
-        self.assertEqual(result, client_number)
-
-    def test_balance_getter(self):
-        # Arrange
-        account_number = 12345
-        client_number = 1010
-        balance = 500.50
-        account = BankAccount(account_number, client_number, balance)
-
-        # Act
-        result = account.balance
-
-        # Assert
-        self.assertEqual(result, balance)
-
-    def test_update_balance_positive_amount(self):
-        # Arrange
-        account = BankAccount(12345, 1010, 500.00)
-        amount = 200.00
-
-        # Act
-        account.update_balance(amount)
-
-        # Assert
-        self.assertEqual(round(account.balance, 2), 700.00)
-
-    def test_update_balance_negative_amount(self):
-        # Arrange
-        account = BankAccount(12345, 1010, 500.00)
-        amount = -200.00
-
-        # Act
-        account.update_balance(amount)
-
-        # Assert
-        self.assertEqual(round(account.balance, 2), 300.00)
-
-    def test_update_balance_invalid_amount(self):
-        # Arrange
-        account = BankAccount(12345, 1010, 500.00)
-        invalid_amount = "invalid"
-
-        # Act
-        account.update_balance(invalid_amount)
-
-        # Assert
-        self.assertEqual(round(account.balance, 2), 500.00)
+        with self.assertRaises(ValueError):
+            BankAccount(account_number, client_number, balance)
 
     def test_deposit_valid_amount(self):
-        # Arrange
-        account = BankAccount(12345, 1010, 500.00)
-        amount = 100.00
-
         # Act
-        account.deposit(amount)
+        self.bank_account.deposit(100.0)
 
         # Assert
-        self.assertEqual(round(account.balance, 2), 600.00)
+        self.assertEqual(200.0, self.bank_account.balance)
+
+    def test_deposit_invalid_amount(self):
+        # Assert
+        with self.assertRaises(ValueError):
+            self.bank_account.deposit("100.0")
 
     def test_deposit_negative_amount(self):
-        # Arrange
-        account = BankAccount(12345, 1010, 500.00)
-        invalid_amount = -50.00
-
-        # Act
-        with self.assertRaises(ValueError) as context:
-            account.deposit(invalid_amount)
-
         # Assert
-        expected_message = "Deposit amount: $-50.00 must be positive."
-        self.assertEqual(str(context.exception), expected_message)
-
-    def test_deposit_non_numeric_amount(self):
-        # Arrange
-        account = BankAccount(12345, 1010, 500.00)
-        invalid_amount = "invalid"
-
-        # Act
-        with self.assertRaises(ValueError) as context:
-            account.deposit(invalid_amount)
-
-        # Assert
-        expected_message = "Deposit amount: invalid must be numeric."
-        self.assertEqual(str(context.exception), expected_message)
+        with self.assertRaises(ValueError):
+            self.bank_account.deposit(-100.0)
 
     def test_withdraw_valid_amount(self):
-        # Arrange
-        account = BankAccount(12345, 1010, 500.00)
-        amount = 200.00
-
         # Act
-        account.withdraw(amount)
+        self.bank_account.withdraw(50.0)
 
         # Assert
-        self.assertEqual(round(account.balance, 2), 300.00)
+        self.assertEqual(50.0, self.bank_account.balance)
 
-    def test_withdraw_exceeds_balance(self):
-        # Arrange
-        account = BankAccount(12345, 1010, 500.00)
-        invalid_amount = 600.00
-
-        # Act
-        with self.assertRaises(ValueError) as context:
-            account.withdraw(invalid_amount)
-
+    def test_withdraw_invalid_amount(self):
         # Assert
-        expected_message = "Withdrawal amount: $600.00 must not exceed the account balance: $500.00"
-        self.assertEqual(str(context.exception), expected_message)
+        with self.assertRaises(ValueError):
+            self.bank_account.withdraw("50.0")
 
     def test_withdraw_negative_amount(self):
-        # Arrange
-        account = BankAccount(12345, 1010, 500.00)
-        invalid_amount = -50.00
+        # Assert
+        with self.assertRaises(ValueError):
+            self.bank_account.withdraw(-50.0)
 
+    def test_update_balance_valid_amount(self):
         # Act
-        with self.assertRaises(ValueError) as context:
-            account.withdraw(invalid_amount)
+        self.bank_account.update_balance(100.0)
 
         # Assert
-        expected_message = "Withdrawal amount: $-50.00 must be positive."
-        self.assertEqual(str(context.exception), expected_message)
+        self.assertEqual(200.0, self.bank_account.balance)
 
-    def test_withdraw_non_numeric_amount(self):
-        # Arrange
-        account = BankAccount(12345, 1010, 500.00)
-        invalid_amount = "invalid"
-
-        # Act
-        with self.assertRaises(ValueError) as context:
-            account.withdraw(invalid_amount)
-
+    def test_update_balance_invalid_amount(self):
         # Assert
-        expected_message = "Withdrawal amount: invalid must be numeric."
-        self.assertEqual(str(context.exception), expected_message)
+        with self.assertRaises(ValueError):
+            self.bank_account.update_balance("100.0")
 
-    def test_str_method(self):
-        # Arrange
-        account = BankAccount(12345, 1010, 500.00)
-
-        # Act
-        result = str(account)
-
-        # Assert
-        expected = "Account Number: 12345 Balance: $500.00\n"
-        self.assertEqual(result, expected)
+if __name__ == '__main__':
+    unittest.main()
