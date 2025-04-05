@@ -10,8 +10,8 @@ from bank_account.bank_account import BankAccount
 from client.client import Client
 
 def main():
-    """Test the functionality of the methods encapsulated 
-    in the BankAccount and Client classes.
+    """Test the functionality of the methods encapsulated in the BankAccount 
+    and Client classes.
     """
 
     try:
@@ -32,8 +32,9 @@ def main():
         # 1 for the
         # BankAccount's client number.
         # Use a floating point value for the balance.
-        bank_account = BankAccount(account_number=67890, client_number=client.client_number, 
-                                   balance=1000.0)
+        bank_account = BankAccount(account_number=67890, 
+                                    client_number=client.client_number, 
+                                    balance=1000.0)
 
         # 4. Code a statement which creates an instance of the BankAccount 
         # class.
@@ -44,7 +45,8 @@ def main():
         # Use an INVALID value (non-float) for the balance.
         try:
             invalid_bank_account = BankAccount(account_number=67891, 
-                                               client_number=client.client_number, balance="invalid_balance")
+                                            client_number=client.client_number, 
+                                            balance="invalid_balance")
         except ValueError as e:
             print(f"Exception caught: {e}")
 

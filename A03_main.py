@@ -70,4 +70,3 @@ for account in [chequing_account, savings_account, savings_account_2]:
 with open(EMAIL_FILE, "r") as file:
     print("Observer Emails Log:")
     print(file.read())
-
