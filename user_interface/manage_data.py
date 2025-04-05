@@ -1,6 +1,10 @@
+"""Implement the load_data function to read and parse data from 
+clients.csv and accounts.csv.
+"""
+
 __author__ = "ACE Faculty"
 __version__ = "1.0.0"
-__credits__ = ""
+__credits__ = "Nkechi Echeta"
 
 import os
 import sys
@@ -9,6 +13,12 @@ from datetime import datetime
 import logging
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+from client.client import Client
+from bank_account.chequing_account import ChequingAccount
+from bank_account.investment_account import InvestmentAccount
+from bank_account.savings_account import SavingsAccount
+from bank_account.bank_account import BankAccount
 
 # *******************************************************************************
 # GIVEN LOGGING AND FILE ACCESS CODE
@@ -109,32 +119,28 @@ def load_data()->tuple[dict,dict]:
     return client_listing, accounts
 
 def update_data(updated_account: BankAccount) -> None:
-    """
-    A function to update the accounts.csv file with balance 
-    data provided in the BankAccount argument.
+    """A function to update the accounts.csv file with balance data provided in 
+    the BankAccount argument.
+    
     Args:
-        updated_account (BankAccount): A bank account containing an updated balance.
+        updated_account (BankAccount): A bank account containing an updated 
+        balance.
     """
     updated_rows = []
 
     with open(accounts_csv_path, mode='r', newline='') as file:
         reader = csv.DictReader(file)
         fields = reader.fieldnames
-        
+
         for row in reader:
-            account_number = int(row['account_number'])
-            # Check if the account number is in the dictionary
-            if account_number == updated_account.account_number:
-                # Update the balance column with the new balance from the dictionary
+            if int(row['account_number']) == updated_account.account_number:
                 row['balance'] = updated_account.balance
             updated_rows.append(row)
 
-    # Write the updated data back to the CSV
     with open(accounts_csv_path, mode='w', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=fields)
         writer.writeheader()
         writer.writerows(updated_rows)
-
 
 # GIVEN TESTING SECTION:
 if __name__ == "__main__":
