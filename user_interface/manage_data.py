@@ -67,7 +67,10 @@ def load_data()->tuple[dict,dict]:
                 account_number = int(record['account_number'])
                 client_number = int(record['client_number'])
                 balance = float(record['balance'])
-                date_created = datetime.strptime(record['date_created'], '%Y-%m-%d').date()
+                date_created = datetime.strptime(
+                    record['date_created'],
+                    '%Y-%m-%d'
+                ).date()
                 account_type = record['account_type'].strip()
 
                 if account_type == "ChequingAccount":
@@ -94,15 +97,16 @@ def load_data()->tuple[dict,dict]:
                 if client_number in client_listing:
                     accounts[account_number] = account
                 else:
-                    logging.error(f"Bank Account: {account_number} "
-                                  f"contains invalid Client Number: {client_number}")
+                    logging.error(
+                        f"Bank Account: {account_number} "
+                        f"contains invalid Client Number: {client_number}"
+                    )
 
             except Exception as e:
                 logging.error(f"Unable to create bank account: {e}")
 
     # RETURN STATEMENT
-    
-
+    return client_listing, accounts
 
 def update_data(updated_account: BankAccount) -> None:
     """
