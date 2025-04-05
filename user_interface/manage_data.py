@@ -4,39 +4,23 @@ __credits__ = ""
 
 import os
 import sys
-# THIS LINE IS NEEDED SO THAT THE GIVEN TESTING 
-# CODE CAN RUN FROM THIS DIRECTORY.
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import csv
 from datetime import datetime
 import logging
 
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
 # *******************************************************************************
 # GIVEN LOGGING AND FILE ACCESS CODE
  
-# Absolute path to root of directory
 root_dir = os.path.dirname(os.path.dirname(__file__))
  
-# Path to the log directory relative to the root directory
 log_dir = os.path.join(root_dir, 'logs')
- 
-# Create the log directory if it doesn't exist
 os.makedirs(log_dir, exist_ok = True)
- 
-# Specify the path to the log file within the log directory
 log_file_path = os.path.join(log_dir, 'manage_data.log')
- 
-# Configure logging to use the specified log file
 logging.basicConfig(filename=log_file_path, filemode='a',
                     format='%(name)s - %(levelname)s - %(message)s\n\n')
- 
-# Given File Path Code:
-# Designed to locate the input files without providing any directory structure
-
-# Construct the absolute path to the data directory at the root of the project
 data_dir = os.path.join(root_dir, 'data')
- 
-# Construct the absolute paths to the data files
 clients_csv_path = os.path.join(data_dir, 'clients.csv')
 accounts_csv_path = os.path.join(data_dir, 'accounts.csv')
  
