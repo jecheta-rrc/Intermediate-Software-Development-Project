@@ -27,25 +27,34 @@ accounts_csv_path = os.path.join(data_dir, 'accounts.csv')
 # END GIVEN LOGGING AND FILE ACCESS CODE
 # *******************************************************************************
 
-
-
-
-
-
 def load_data()->tuple[dict,dict]:
-    """
-    Populates a client dictionary and an account dictionary with 
+    """Populates a client dictionary and an account dictionary with 
     corresponding data from files within the data directory.
+    
     Returns:
         tuple containing client dictionary and account dictionary.
     """
+    
     client_listing = {}
     accounts = {}
 
     # READ CLIENT DATA 
     with open(clients_csv_path, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
-        
+        for record in reader:
+            try:
+                client_number = int(record['client_number'])
+                first_name = record['first_name'].strip()
+                last_name = record['last_name'].strip()
+                email = record['email_address'].strip()
+
+                if not first_name:
+                    raise ValueError("First Name cannot be blank.")
+
+                client = Client(client_number, first_name, last_name, email)
+                client_listing[client_number] = client
+            except Exception as e:
+                logging.error(f"Unable to create client: {e}")
 
     # READ ACCOUNT DATA
     with open(accounts_csv_path, newline='') as csvfile:
