@@ -12,6 +12,8 @@ Assignment 1: Bank Account Management and this assignment involves creating clas
 
 Assignment 2: This assignment will focus on inheritance, abstraction, and polymorphism. I created a hierarchy of classes that demonstrate these object-oriented principles, allowing for code reuse and flexibility in the overall system design.
 
+Assignment 3: This assignment will focus on design patterns, specifically the Singleton and Observer patterns. I will implement these patterns in the context of the bank account system to improve the overall design and functionality of the system.
+
 ## Encapsulation
 
 Encapsulation in the BankAccount and Transaction classes was achieved as follows:
@@ -24,3 +26,5 @@ Encapsulation in the BankAccount and Transaction classes was achieved as follows
 ## Polymorphism
 
 Polymorphism in object-oriented programming allows different classes to implement the same method in different ways. In the BankAccount class and its subclasses (ChequingAccount, SavingsAccount, InvestmentAccount), polymorphism is primarily achieved through method overriding.
+
+Assignment 4: Implementation of the Observer Pattern with Event-Driven GUI Components using PySide6.
