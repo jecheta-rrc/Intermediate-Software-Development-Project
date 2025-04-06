@@ -1,7 +1,7 @@
 """A class representing a chequing account""" 
 
-_author_ = "Nkechi Echeta"
-_version_ = "1.0.0"
+__author__ = "Nkechi Echeta"
+__version__ = "1.0.0"
 
 from bank_account.bank_account import BankAccount
 from patterns.strategy.overdraft_strategy import OverdraftStrategy
@@ -11,32 +11,52 @@ class ChequingAccount(BankAccount):
     """Represents a chequing account, which allows overdraft."""
 
     def __init__(self, account_number: int, client_number: int, 
-                balance: float, date_created: date,
-                overdraft_limit: float, overdraft_rate: float) -> None:
-        """Initializes a new instance of the ChequingAccount class.
+                balance: float, date_created: date, 
+                overdraft_limit, overdraft_rate):
+        """Initialize a chequing account object.
+    
+        Args: 
+        account_number (int): The account number.
+        client_number (int): The client number.
+        balance (float): The initial balance of the account.
+        date_created (date): The date when the account was created.
+        overdraft_limit: The overdraft limit (validated as a float or 
+            default to -100).
+        overdraft_rate: The overdraft rate (validated as a float or 
+            default to 0.05).
+        
+        Raises:
+            ValueError: If overdraft_limit or overdraft_rate cannot be converted 
+                to float, or if date_created is not an instance of the date class.
+            TypeError: If overdraft_limit or overdraft_rate is not a number.
+        """
+      
+        super().__init__(account_number, client_number, balance, date_created)
+    
+        try:
+            self.__overdraft_limit = float(overdraft_limit)
+        except (ValueError, TypeError):
+            self.__overdraft_limit = -100.00
+    
+        try:
+            self.__overdraft_rate = float(overdraft_rate)
+        except (ValueError, TypeError):
+            self.__overdraft_rate = 0.05
 
-        Args:
-            account_number (int): The unique identifier for the account.
-            client_number (int): The unique identifier for the client.
-            balance (float): The initial balance of the account.
-            date_created (date): The date the account was created.
-            overdraft_limit (float): The maximum negative balance 
-                allowed.
-            overdraft_rate (float): The interest rate charged on 
-                overdraft usage.
+    @property
+    def overdraft_limit(self) -> float:
+        """Returns the overdraft limit.
+        
+        Returns:
+            float: The overdraft limit.
         """
         
-        self.__strategy = OverdraftStrategy(overdraft_limit, overdraft_rate)
+        return self.__overdraft_limit
+
+    @property
+    def overdraft_rate(self) -> float:
+        """Returns the overdraft rate.
         
-        super().__init__(account_number, client_number, balance, date_created, 
-        self.__strategy)
-
-        self.__overdraft_limit = overdraft_limit
-        self.__overdraft_rate = overdraft_rate
-
-    def get_service_charge(self) -> float:
-        """Calculates the service charge based on overdraft strategy.
-
         Returns:
             float: The calculated service charge.
         """

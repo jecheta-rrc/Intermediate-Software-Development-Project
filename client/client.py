@@ -1,21 +1,21 @@
-"""This module defines the Client class, which acts as an observer 
-for bank account notifications in the Observer Pattern.
+"""This module defines the Client class, which acts as an observer for bank 
+account notifications in the Observer Pattern.
 """
 
 __author__ = "Nkechi Echeta"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 from patterns.observer.observer import Observer
 from datetime import datetime
 from utility.file_utils import simulate_send_email
 
 class Client(Observer):
-    """Represents a bank client who receives notifications about 
-    transactions on their bank account.
+    """Represents a bank client who receives notifications about transactions 
+    on their bank account.
     """
 
     def __init__(self, client_number: int, first_name: str, last_name: str, 
-        email_address: str):
+    email_address: str):
         """Initializes a client instance.
         
         Args:
@@ -84,26 +84,11 @@ class Client(Observer):
             f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         )
         email_message = (
-            f"Notification for {self.client_number}: {self.first_name} "
-            f"{self.last_name}: {message}"
+            f"Notification for {self.client_number}: {self.first_name} " 
+                         f"{self.last_name}: {message}"
         )
-
+        
         simulate_send_email(self.email_address, subject, email_message)
-
-    def update(self, message: str) -> None:
-        """Receive notification and simulate sending an email."""
-        subject = f"ALERT: Unusual Activity: {date.today().strftime('%Y-%m-%d')}"
-        email_message = (
-        f"Notification for {self.client_number}: {self.first_name} {self.last_name}\n"
-        f"Message: {message}\n"
-        )
-
-    # Append the email notification to observer_emails.txt
-    with open("output/observer_emails.txt", "a") as file:
-        file.write(f"Subject: {subject}\n{email_message}\n{'-'*40}\n")
-    
-    print(f"Email sent to {self.email_address} - Subject: {subject}")
-
 
     def __str__(self) -> str:
         """Returns a string representation of the client.
@@ -114,6 +99,5 @@ class Client(Observer):
         
         return (
             f"Client({self.first_name} {self.last_name}, "
-            f"Email: {self.email_address})"
+            f"Email: {self.email_address}"
         )
-    

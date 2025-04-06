@@ -3,7 +3,7 @@ Observer Pattern.
 """
 
 __author__ = "Nkechi Echeta"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __credits__ = "Nkechi Echeta"
 
 from patterns.observer.observer import Observer
@@ -47,4 +47,3 @@ class Subject:
         
         for observer in self._observers:
             observer.update(message)
-    

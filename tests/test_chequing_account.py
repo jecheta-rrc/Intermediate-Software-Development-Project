@@ -33,8 +33,14 @@ class TestChequingAccount(unittest.TestCase):
         self.assertEqual(self.account.client_number, self.client_number)
         self.assertEqual(self.account.balance, self.balance)
         self.assertEqual(self.account._date_created, self.date_created)
-        self.assertEqual(self.account._ChequingAccount__overdraft_limit, self.overdraft_limit)
-        self.assertEqual(self.account._ChequingAccount__overdraft_rate, self.overdraft_rate)
+        self.assertEqual(
+            self.account._ChequingAccount__overdraft_limit,
+            self.overdraft_limit
+        )
+        self.assertEqual(
+            self.account._ChequingAccount__overdraft_rate, 
+            self.overdraft_rate
+        )
 
     def test_get_service_charge_balance_above_overdraft_limit(self):
         # Act
@@ -45,7 +51,7 @@ class TestChequingAccount(unittest.TestCase):
 
     def test_get_service_charge_balance_below_overdraft_limit(self):
         # Arrange
-        self.account.withdraw(600.00) 
+        self.account.withdraw(600.00)
         
         # Act
         expected_charge = self.account.get_service_charge()

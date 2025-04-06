@@ -1,7 +1,7 @@
 """This module defines the Observer class."""
 
 __author__ = "Nkechi Echeta"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __credits__ = "Nkechi Echeta"
 
 from abc import ABC, abstractmethod

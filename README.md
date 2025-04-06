@@ -14,8 +14,7 @@ Assignment 1: Bank Account Management and this assignment involves creating clas
 
 Assignment 2: This assignment will focus on inheritance, abstraction, and polymorphism. I created a hierarchy of classes that demonstrate these object-oriented principles, allowing for code reuse and flexibility in the overall system design.
 
-Assignment 3: Implemented the Observer Pattern for notifying clients about significant transactions
-and low balances. Additionally, applied the Strategy Pattern to handle different service charge calculations for various bank accounts.
+Assignment 3: This assignment will focus on design patterns, specifically the Singleton and Observer patterns. I will implement these patterns in the context of the bank account system to improve the overall design and functionality of the system.
 
 ## Encapsulation
 
@@ -45,3 +44,17 @@ The Observer Pattern in this application ensures that bank clients receive real-
 about significant account activities. The BankAccount class acts as the Subject, maintaining a list
 of observers (clients) and notifying them of important events. The Client class, as an Observer, implements the update() method to receive alerts when a large transaction occurs or when the account balance drops below a set threshold. This design allows for a flexible and decoupled notification
 system, improving real-time communication between bank accounts and clients.
+Assignment 4: Implementation of the Observer Pattern with Event-Driven GUI Components using PySide6.
+
+## Event-Driven Programming Paradigm
+
+This application follows the Event-Driven Programming Paradigm by responding to user interactions and internal signals through a series of event handlers and slots.
+
+Key event-driven features include:
+
+- PySide6 Signals and Slots: The application uses custom signals (e.g., 'balance_updated') to notify components when a transaction is completed, allowing the UI to refresh automatically without polling.
+- GUI Interactions: Buttons like 'lookup_button' and input fields such as 'client_number_edit' trigger event-handling methods when users enter values or click buttons.
+- Dynamic Updates: The 'AccountDetailsWindow' emits signals when transactions are applied, and these signals are connected to slots (e.g., 'update_data') in the 'ClientLookupWindow', which updates the account table and saves changes to the file.
+- Error Handling and Validation: User input errors (e.g., invalid client numbers or non-numeric values) trigger events that display 'QMessageBox' alerts and guide the user.
+
+This approach ensures the application is reactive, user-friendly, and maintainable, as components only respond to specific events rather than running in a continuous loop.

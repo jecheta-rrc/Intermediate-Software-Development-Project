@@ -1,7 +1,10 @@
 """Implementation of the BankAccount class with Observer pattern support."""
+"""This module defines the BankAccount class, which extends Subject to notify 
+observers of account changes in the Observer Pattern.
+"""
 
 __author__ = "Nkechi Echeta"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __credits__ = "ACE Faculty"
 
 from abc import ABC, abstractmethod
@@ -9,6 +12,11 @@ from datetime import datetime, date
 from typing import TYPE_CHECKING
 from patterns.observer.subject import Subject
 
+from datetime import date
+from typing import TYPE_CHECKING
+from patterns.observer.subject import Subject
+
+# Avoid circular import issue by using TYPE_CHECKING
 if TYPE_CHECKING:
     from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
 else:
@@ -16,14 +24,15 @@ else:
 
 class BankAccount(Subject, ABC):
     """Represents a bank account that supports deposits, withdrawals, 
-    service charges, and observer notifications."""
+    service charges, and observer notifications.
+    """
 
     LARGE_TRANSACTION_THRESHOLD: float = 9999.99
     LOW_BALANCE_LEVEL: float = 50.0
 
     def __init__(self, account_number: int, client_number: int, balance: float, 
-                 date_created: date, 
-                 service_charge_strategy: "ServiceChargeStrategy"):
+                date_created: date, 
+                service_charge_strategy: "ServiceChargeStrategy"):
         """Initializes a bank account instance.
 
         Args:
@@ -38,11 +47,12 @@ class BankAccount(Subject, ABC):
                 strategy used for calculating service charges.
 
         Raises:
-            ValueError: If 'account_number' or 'client_number' is not an integer.
-            ValueError: If 'balance' is not numeric.
-            ValueError: If 'date_created' is not an instance of 'date'.
-            ValueError: If 'service_charge_strategy' is not a valid 
-                'ServiceChargeStrategy' instance.
+            ValueError: If `account_number` or `client_number` is not 
+                an integer.
+            ValueError: If `balance` is not numeric.
+            ValueError: If `date_created` is not an instance of `date`.
+            ValueError: If `service_charge_strategy` is not a valid 
+                `ServiceChargeStrategy` instance.
         """
         
         super().__init__()
@@ -93,6 +103,17 @@ class BankAccount(Subject, ABC):
         """
         
         return self.__balance
+    
+    @property
+    def date_created(self) -> date:
+        """Gets the date the account was created.
+
+        Returns:
+            date: The creation date of the account.
+        """
+        
+        return self._date_created
+
 
     def update_balance(self, amount: float) -> None:
         """Updates the account balance by a specified amount.
@@ -116,7 +137,7 @@ class BankAccount(Subject, ABC):
 
         if abs(amount) > self.LARGE_TRANSACTION_THRESHOLD:
             self.notify(
-                f"Large transaction ${amount:.2f}: " 
+                f"Large transaction ${amount:.2f}: "
                 f"on account {self.account_number}."
             )
 
@@ -128,6 +149,7 @@ class BankAccount(Subject, ABC):
 
         Raises:
             ValueError: If 'amount' is negative or not numeric.
+            ValueError: If `amount` is negative or not numeric.
         """
         
         if not isinstance(amount, (int, float)) or amount < 0:
@@ -146,7 +168,7 @@ class BankAccount(Subject, ABC):
             amount (float): The amount to be withdrawn from the account.
 
         Raises:
-            ValueError: If 'amount' is negative or not numeric.
+            ValueError: If `amount` is negative or not numeric.
             Warning: If withdrawal is skipped due to insufficient funds.
         """
 
@@ -187,4 +209,4 @@ class BankAccount(Subject, ABC):
         
         return (f"Account Number: {self.account_number} "
                 f"Balance: ${self.balance:.2f}")
-    
+                

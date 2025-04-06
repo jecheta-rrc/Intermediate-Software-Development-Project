@@ -26,7 +26,7 @@ class TestInvestmentAccount(unittest.TestCase):
         self.ten_years_ago = date.today() - timedelta(days=10 * 365.25)
 
     def test_attributes_set_to_parameter_values(self):
-
+        
         account = InvestmentAccount(
             self.account_number, self.client_number, self.balance, 
             self.ten_years_ago, self.management_fee
@@ -37,6 +37,7 @@ class TestInvestmentAccount(unittest.TestCase):
         self.assertEqual(account.balance, self.balance)
 
     def test_date_created_more_than_10_years_ago(self):
+        
         more_than_ten_years_ago = date.today() - timedelta(days=11 * 365.25)
         
         account = InvestmentAccount(
@@ -47,7 +48,7 @@ class TestInvestmentAccount(unittest.TestCase):
         self.assertTrue(account._date_created <= InvestmentAccount.TEN_YEARS_AGO)
 
     def test_date_created_within_last_10_years(self):
-    
+        
         within_last_ten_years = date.today() - timedelta(days=5 * 365.25)
         
         account = InvestmentAccount(
@@ -71,7 +72,7 @@ class TestInvestmentAccount(unittest.TestCase):
         self.assertIn(f"Management Fee: ${self.management_fee:.2f}", result)
 
     def test_displays_management_fee_when_date_created_within_last_10_years(self):
-    
+        
         within_last_ten_years = date.today() - timedelta(days=5 * 365.25)
         
         account = InvestmentAccount(
@@ -84,4 +85,4 @@ class TestInvestmentAccount(unittest.TestCase):
         self.assertIn(f"Management Fee: ${self.management_fee:.2f}", result)
 
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()

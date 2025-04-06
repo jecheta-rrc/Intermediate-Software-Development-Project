@@ -1,12 +1,11 @@
-"""Unit tests for the Client class.
+"""Unit tests for the Client class
 
-Usage: To execute all tests in the terminal execute 
-the following command:
-    python -m unittest tests/test_client.py
+   example usage:
+            $ python -m unittest tests/test_client.py
 """
 
-__author__ = "Nkechi Echeta"
-__version__ = "1.0.0"
+__Author__ = "Nkechi Echeta"
+__Version__ = "1.0.0"
 
 import unittest
 from email_validator import EmailNotValidError
@@ -27,7 +26,7 @@ class TestClient(unittest.TestCase):
         self.client = Client(client_number, first_name, last_name, email_address)
 
     def test_init_valid_instance(self):
-        #Arrange
+        # Arrange
         client_number = 1
         first_name = "John"
         last_name = "Doe"

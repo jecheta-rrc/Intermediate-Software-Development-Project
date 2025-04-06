@@ -15,7 +15,6 @@ from datetime import date
 from bank_account.savings_account import SavingsAccount
 from patterns.strategy.minimum_balance_strategy import MinimumBalanceStrategy
 
-
 class TestSavingsAccount(unittest.TestCase):
     """Tests the SavingsAccount class."""
 
@@ -38,7 +37,7 @@ class TestSavingsAccount(unittest.TestCase):
         )
 
     def test_init_initialize_state(self):
-        # Assert
+        # Assert: Verify attributes through public accessors
         self.assertEqual(self.account.account_number, self.account_number)
         self.assertEqual(self.account.client_number, self.client_number)
         self.assertEqual(self.account.balance, self.balance)
@@ -80,7 +79,6 @@ class TestSavingsAccount(unittest.TestCase):
         
         # Assert
         self.assertEqual(str(self.account), expected)
-
 
 if __name__ == '__main__':
     unittest.main()

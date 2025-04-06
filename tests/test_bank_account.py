@@ -1,12 +1,11 @@
-"""Unit tests for the BankAccount class.
+"""This module contains the unit tests for the BankAccount class
 
-Usage: To execute all tests in the terminal execute 
-the following command:
-    python -m unittest tests/test_bank_account.py
+   example:
+        $ python -m unittest tests/test_bank_account.py
 """
 
-__author__ = "Nkechi Echeta"
-__version__ = "1.0.0"
+__Author__ = "Nkechi Echeta"
+__Version__ = "1.0.0"
 
 import unittest
 from bank_account.bank_account import BankAccount
@@ -117,3 +116,4 @@ class TestBankAccount(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    
