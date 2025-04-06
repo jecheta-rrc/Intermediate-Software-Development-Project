@@ -12,7 +12,7 @@ class SavingsAccount(BankAccount):
     """Represents a savings account with a minimum balance requirement."""
 
     def __init__(self, account_number: int, client_number: int, balance: float, 
-                 date_created: date, minimum_balance: float) -> None:
+                date_created: date, minimum_balance: float) -> None:
         """Initializes a new instance of the SavingsAccount class.
 
         Args:
@@ -27,7 +27,7 @@ class SavingsAccount(BankAccount):
         service_charge_strategy = MinimumBalanceStrategy(minimum_balance)
 
         super().__init__(account_number, client_number, balance, date_created, 
-                         service_charge_strategy)
+                        service_charge_strategy)
 
         self.__minimum_balance = minimum_balance
 
@@ -52,4 +52,3 @@ class SavingsAccount(BankAccount):
                 f"Balance: ${self.balance:.2f}\n"
                 f"Minimum Balance: ${self.__minimum_balance:.2f}\n"
                 f"Account Type: Savings")
-

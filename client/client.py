@@ -1,5 +1,5 @@
-"""This module defines the Client class, which acts as an observer 
-for bank account notifications in the Observer Pattern.
+"""This module defines the Client class, which acts as an observer for bank 
+account notifications in the Observer Pattern.
 """
 
 __author__ = "Nkechi Echeta"
@@ -10,8 +10,8 @@ from datetime import datetime
 from utility.file_utils import simulate_send_email
 
 class Client(Observer):
-    """Represents a bank client who receives notifications about 
-    transactions on their bank account.
+    """Represents a bank client who receives notifications about transactions 
+    on their bank account.
     """
 
     def __init__(self, client_number: int, first_name: str, last_name: str, 
@@ -79,11 +79,15 @@ class Client(Observer):
                 bank account.
         """
         
-        subject = f"ALERT: Unusual Activity: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        email_message = (f"Notification for {self.client_number}: {self.first_name} " 
-                         f"{self.last_name}: {message}")
+        subject = (
+            f"ALERT: Unusual Activity: "
+            f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        )
+        email_message = (
+            f"Notification for {self.client_number}: {self.first_name} " 
+                         f"{self.last_name}: {message}"
+        )
         
-        # Simulate sending an email
         simulate_send_email(self.email_address, subject, email_message)
 
     def __str__(self) -> str:
@@ -93,4 +97,7 @@ class Client(Observer):
             str: The string representation of the client.
         """
         
-        return f"Client({self.first_name} {self.last_name}, Email: {self.email_address})"
+        return (
+            f"Client({self.first_name} {self.last_name}, "
+            f"Email: {self.email_address}"
+        )

@@ -1,7 +1,7 @@
 """A class representing a chequing account""" 
 
 __author__ = "Nkechi Echeta"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 from bank_account.bank_account import BankAccount
 from patterns.strategy.overdraft_strategy import OverdraftStrategy
@@ -10,8 +10,9 @@ from datetime import date
 class ChequingAccount(BankAccount):
     """Represents a chequing account, which allows overdraft."""
 
-    def __init__(self, account_number: int, client_number: int, balance: float, date_created: date,
-                 overdraft_limit: float, overdraft_rate: float) -> None:
+    def __init__(self, account_number: int, client_number: int, balance: float, 
+                date_created: date,overdraft_limit: float, 
+                overdraft_rate: float) -> None:
         """Initializes a new instance of the ChequingAccount class.
 
         Args:
@@ -27,7 +28,13 @@ class ChequingAccount(BankAccount):
     
         self.__strategy = OverdraftStrategy(overdraft_limit, overdraft_rate)
         
-        super().__init__(account_number, client_number, balance, date_created, self.__strategy)
+        super().__init__(
+            account_number, 
+            client_number, 
+            balance, 
+            date_created, 
+            self.__strategy
+        )
 
         self.__overdraft_limit = overdraft_limit
         self.__overdraft_rate = overdraft_rate

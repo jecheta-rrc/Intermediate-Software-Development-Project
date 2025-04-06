@@ -38,12 +38,16 @@ class ClientLookupWindow(LookupWindow):
             client_number = int(self.client_number_edit.text())
         except ValueError:
             QMessageBox.information(self, "Input Error", 
-                                    "The client number must be a numeric value.")
+                                "The client number must be a numeric value.")
             self.reset_display()
             return
 
         if client_number not in self.client_listing:
-            QMessageBox.information(self, "Not Found", f"Client number: {client_number} not found.")
+            QMessageBox.information(
+                self, 
+                "Not Found", 
+                f"Client number: {client_number} not found."
+            )
             self.reset_display()
             return
 
@@ -110,8 +114,14 @@ class ClientLookupWindow(LookupWindow):
 
         for row in range(self.account_table.rowCount()):
             table_account_number = self.account_table.item(row, 0)
-            if table_account_number and int(table_account_number.text()) == account.account_number:
-                self.account_table.setItem(row, 1, QTableWidgetItem(f"${account.balance:,.2f}"))
+            if (table_account_number 
+            and int(table_account_number.text()) == account.account_number
+            ):
+                self.account_table.setItem(
+                    row, 
+                    1, 
+                    QTableWidgetItem(f"${account.balance:,.2f}")
+                )
                 break
 
         self.accounts[account.account_number] = account

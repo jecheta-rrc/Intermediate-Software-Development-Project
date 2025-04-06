@@ -1,7 +1,7 @@
 """This module defines the InvestmentAccount class."""
 
 __author__ = "Nkechi Echeta"
-__version__ = "1.1.2025"
+__version__ = "1.1.0"
 __credits__ = "ACE Faculty"
 
 from datetime import date, timedelta
@@ -13,8 +13,8 @@ class InvestmentAccount(BankAccount):
 
     TEN_YEARS_AGO = date.today() - timedelta(days=10 * 365.25)
 
-    def __init__(self, account_number: int, client_number: int, balance: float, date_created: date,
-                 management_fee: float) -> None:
+    def __init__(self, account_number: int, client_number: int, balance: float, 
+                date_created: date,management_fee: float) -> None:
         """Initializes a new instance of the InvestmentAccount class.
 
         Args:
@@ -26,10 +26,12 @@ class InvestmentAccount(BankAccount):
                 management.
         """
         
-        service_charge_strategy = ManagementFeeStrategy(date_created, management_fee)
+        service_charge_strategy = ManagementFeeStrategy(
+            date_created, management_fee
+        )
 
         super().__init__(account_number, client_number, balance, date_created, 
-                         service_charge_strategy)
+                        service_charge_strategy)
 
         self.__management_fee = management_fee
 

@@ -1,5 +1,5 @@
-"""This module defines the BankAccount class, which extends Subject 
-to notify observers of account changes in the Observer Pattern.
+"""This module defines the BankAccount class, which extends Subject to notify 
+observers of account changes in the Observer Pattern.
 """
 
 __author__ = "Nkechi Echeta"
@@ -26,7 +26,8 @@ class BankAccount(Subject, ABC):
     LOW_BALANCE_LEVEL: float = 50.0
 
     def __init__(self, account_number: int, client_number: int, balance: float, 
-                 date_created: date, service_charge_strategy: "ServiceChargeStrategy"):
+                date_created: date, 
+                service_charge_strategy: "ServiceChargeStrategy"):
         """Initializes a bank account instance.
 
         Args:
@@ -125,14 +126,15 @@ class BankAccount(Subject, ABC):
         
         self.__balance += amount
 
-        # Notify if balance falls below threshold
         if self.__balance < self.LOW_BALANCE_LEVEL:
             self.notify(f"Low balance warning ${self.balance:.2f}: on account "
                         f"{self.account_number}.")
 
-        # Notify if a large transaction occurs
         if abs(amount) > self.LARGE_TRANSACTION_THRESHOLD:
-            self.notify(f"Large transaction ${amount:.2f}: on account {self.account_number}.")
+            self.notify(
+                f"Large transaction ${amount:.2f}: "
+                f"on account {self.account_number}."
+            )
 
     def deposit(self, amount: float) -> None:
         """Deposits money into the bank account.
@@ -148,7 +150,10 @@ class BankAccount(Subject, ABC):
             raise ValueError("Deposit amount must be a positive numeric value.")
         
         self.update_balance(amount)
-        self.notify(f"Deposited ${amount:.2f}. New balance: ${self.balance:.2f}")
+        self.notify(
+            f"Deposited ${amount:.2f}. "
+            f"New balance: ${self.balance:.2f}"
+        )
 
     def withdraw(self, amount: float) -> None:
         """Withdraws money from the bank account.
@@ -162,9 +167,10 @@ class BankAccount(Subject, ABC):
         """
 
         if not isinstance(amount, (int, float)) or amount < 0:
-            raise ValueError("Withdrawal amount must be a positive numeric value.")
+            raise ValueError(
+                "Withdrawal amount must be a positive numeric value."
+            )
         
-        # Check if funds are sufficient before attempting withdrawal
         if amount > self.balance:
             print(f"Warning: Insufficient funds. Cannot withdraw "
                   f"${amount:.2f}. Skipping withdrawal.")
@@ -172,7 +178,10 @@ class BankAccount(Subject, ABC):
             return  
 
         self.update_balance(-amount)
-        self.notify(f"Withdrawn ${amount:.2f}. New balance: ${self.balance:.2f}")
+        self.notify(
+            f"Withdrawn ${amount:.2f}. "
+            f"New balance: ${self.balance:.2f}"
+        )
 
     def get_service_charge(self) -> float:
         """Calculates and retrieves the service charge for the account.
@@ -194,3 +203,4 @@ class BankAccount(Subject, ABC):
         
         return (f"Account Number: {self.account_number} "
                 f"Balance: ${self.balance:.2f}")
+                

@@ -52,7 +52,11 @@ class AccountDetailsWindow(DetailsWindow):
         try:
             amount = float(self.transaction_amount_edit.text())
         except ValueError:
-            QMessageBox.information(self, "Invalid Data", "Amount must be numeric.")
+            QMessageBox.information(
+                self, 
+                "Invalid Data", 
+                "Amount must be numeric."
+            )
             self.transaction_amount_edit.setFocus()
             return
 
@@ -74,7 +78,11 @@ class AccountDetailsWindow(DetailsWindow):
                 self.account.withdraw(amount)
 
             else:
-                QMessageBox.warning(self, "Unknown Action", "Unknown transaction source.")
+                QMessageBox.warning(
+                    self, 
+                    "Unknown Action", 
+                    "Unknown transaction source."
+                )
                 return
 
             self.balance_label.setText(f"${self.account.balance:,.2f}")
