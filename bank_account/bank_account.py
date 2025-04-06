@@ -1,21 +1,25 @@
-"""BankAccount class implementation."""
+"""This module defines the BankAccount class, which extends Subject 
+to notify observers of account changes in the Observer Pattern.
+"""
 
 __author__ = "Nkechi Echeta"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __credits__ = "ACE Faculty"
 
 from abc import ABC, abstractmethod
-from datetime import datetime, date
+from datetime import date
 from typing import TYPE_CHECKING
+from patterns.observer.subject import Subject
 
+# Avoid circular import issue by using TYPE_CHECKING
 if TYPE_CHECKING:
     from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
 else:
     from patterns.strategy.service_charge_strategy import ServiceChargeStrategy  
 
-class BankAccount:
-    """Represents a bank account that supports deposits, withdrawals, service 
-    charges, and observer notifications.
+class BankAccount(Subject, ABC):
+    """Represents a bank account that supports deposits, withdrawals, 
+    service charges, and observer notifications.
     """
 
     LARGE_TRANSACTION_THRESHOLD: float = 9999.99
@@ -121,10 +125,12 @@ class BankAccount:
         
         self.__balance += amount
 
+        # Notify if balance falls below threshold
         if self.__balance < self.LOW_BALANCE_LEVEL:
             self.notify(f"Low balance warning ${self.balance:.2f}: on account "
                         f"{self.account_number}.")
 
+        # Notify if a large transaction occurs
         if abs(amount) > self.LARGE_TRANSACTION_THRESHOLD:
             self.notify(f"Large transaction ${amount:.2f}: on account {self.account_number}.")
 
@@ -158,6 +164,7 @@ class BankAccount:
         if not isinstance(amount, (int, float)) or amount < 0:
             raise ValueError("Withdrawal amount must be a positive numeric value.")
         
+        # Check if funds are sufficient before attempting withdrawal
         if amount > self.balance:
             print(f"Warning: Insufficient funds. Cannot withdraw "
                   f"${amount:.2f}. Skipping withdrawal.")

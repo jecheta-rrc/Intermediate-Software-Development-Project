@@ -5,7 +5,7 @@ __version__ = "1.0.0"
 __credits__ = "Nkechi Echeta"
 
 from PySide6.QtWidgets import QTableWidgetItem, QMessageBox
-from PySide6.QtCore import Slot, Qt
+from PySide6.QtCore import Slot
 from ui_superclasses.lookup_window import LookupWindow
 from user_interface.manage_data import load_data
 from user_interface.account_details_window import AccountDetailsWindow

@@ -1,15 +1,18 @@
 """This module defines the Client class, which acts as an observer 
-for bank account notifications in the Observer Pattern."""
+for bank account notifications in the Observer Pattern.
+"""
 
 __author__ = "Nkechi Echeta"
 __version__ = "1.1.0"
 
+from patterns.observer.observer import Observer
 from datetime import datetime
 from utility.file_utils import simulate_send_email
 
-class Client:
+class Client(Observer):
     """Represents a bank client who receives notifications about 
-    transactions on their bank account."""
+    transactions on their bank account.
+    """
 
     def __init__(self, client_number: int, first_name: str, last_name: str, 
     email_address: str):
