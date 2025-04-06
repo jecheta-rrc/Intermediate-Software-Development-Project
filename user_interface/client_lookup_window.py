@@ -81,4 +81,29 @@ class ClientLookupWindow(LookupWindow):
     @Slot(int, int)
     def on_select_account(self, row: int, column: int):
         """Opens the account details dialog based on selected row."""
-        pass
+        
+        account_item = self.account_table.item(row, 0)
+        
+        if account_item is None:
+            QMessageBox.information(self, "Invalid Selection", 
+                                    "Please select a valid record.")
+            return
+
+        account_number_str = account_item.text()
+        if not account_number_str:
+            QMessageBox.information(self, "Invalid Selection", 
+                                    "Please select a valid record.")
+            return
+
+        account_number = int(account_number_str)
+        if account_number not in self.accounts:
+            QMessageBox.information(self, "No Bank Account", 
+                                    "Bank Account selected does not exist.")
+            return
+
+        account = self.accounts[account_number]
+
+        # Open the details window and connect signal to update method
+        details_window = AccountDetailsWindow(account)
+        details_window.balance_updated.connect(self.update_data)
+        details_window.exec()
