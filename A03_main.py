@@ -30,8 +30,8 @@ chequing_account = ChequingAccount(
     client_number=101, 
     balance=500, 
     date_created=date.today(), 
-    overdraft_limit=200,  # ✅ Added overdraft_limit
-    overdraft_rate=0.05  # ✅ Added overdraft_rate
+    overdraft_limit=200,  
+    overdraft_rate=0.05  
 )
 
 # 3b. Create a SavingsAccount object with data of your choice, using the client_number of client1.
@@ -40,7 +40,7 @@ savings_account = SavingsAccount(
     client_number=101, 
     balance=1000, 
     date_created=date.today(), 
-    minimum_balance=200  # ✅ Removed service_charge_strategy
+    minimum_balance=200  
 )
 
 # 5b. Create a second SavingsAccount object with data of your choice, using the client_number of client2.

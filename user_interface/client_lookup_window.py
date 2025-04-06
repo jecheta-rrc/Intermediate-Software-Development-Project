@@ -5,7 +5,7 @@ __version__ = "1.0.0"
 __credits__ = "Nkechi Echeta"
 
 from PySide6.QtWidgets import QTableWidgetItem, QMessageBox
-from PySide6.QtCore import Slot
+from PySide6.QtCore import Slot, Qt
 from ui_superclasses.lookup_window import LookupWindow
 from user_interface.manage_data import load_data
 from user_interface.account_details_window import AccountDetailsWindow
@@ -103,3 +103,18 @@ class ClientLookupWindow(LookupWindow):
         details_window.balance_updated.connect(self.update_data)
         details_window.exec()
 
+    def update_data(self, account):
+        """Updates the account information in the table and 
+        internal data.
+        """
+
+        for row in range(self.account_table.rowCount()):
+            table_account_number = self.account_table.item(row, 0)
+            if table_account_number and int(table_account_number.text()) == account.account_number:
+                self.account_table.setItem(row, 1, QTableWidgetItem(f"${account.balance:,.2f}"))
+                break
+
+        self.accounts[account.account_number] = account
+
+        from user_interface.manage_data import update_data
+        update_data(account)

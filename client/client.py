@@ -1,101 +1,93 @@
-"""Client class to manage client information for a banking system."""
+"""This module defines the Client class, which acts as an observer 
+for bank account notifications in the Observer Pattern."""
 
 __author__ = "Nkechi Echeta"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
-from email_validator import validate_email, EmailNotValidError
+from datetime import datetime
+from utility.file_utils import simulate_send_email
 
 class Client:
-    """Represents a bank client with details like client number, first name, 
-    last name, and email address.
-    """
+    """Represents a bank client who receives notifications about 
+    transactions on their bank account."""
 
     def __init__(self, client_number: int, first_name: str, last_name: str, 
     email_address: str):
-        """Initializes a new instance of the Client class with validation for 
-        attributes.
+        """Initializes a client instance.
         
         Args:
-            client_number (int): A unique identifier for the client.
+            client_number (int): The unique identifier of the client.
             first_name (str): The first name of the client.
             last_name (str): The last name of the client.
             email_address (str): The email address of the client.
-
-        Raises:
-            ValueError: If client_number is not an integer, or if first_name, or 
-            last_name is blank after stripping whitespace.
         """
-
-        if not isinstance(client_number, int):
-            raise ValueError("Client number must be an integer.")
+        
         self._client_number = client_number
-
-        stripped_first_name = first_name.strip()
-        if not stripped_first_name:
-            raise ValueError("First name cannot be blank.")
-        self._first_name = stripped_first_name
-
-        stripped_last_name = last_name.strip()
-        if not stripped_last_name:
-            raise ValueError("Last name cannot be blank.")
-        self._last_name = stripped_last_name
-
-        try:
-            valid_email = validate_email(email_address)
-            self._email_address = valid_email.email
-        except EmailNotValidError:
-            self._email_address = "email@pixell-river.com"
+        self._first_name = first_name
+        self._last_name = last_name
+        self._email_address = email_address
 
     @property
     def client_number(self) -> int:
-        """Returns the client number.
+        """Gets the client's unique identifier.
         
         Returns:
-            int: The client number.
+            int: The unique client number.
         """
-
+        
         return self._client_number
 
     @property
     def first_name(self) -> str:
-        """Returns the first name.
+        """Gets the client's first name.
         
         Returns:
-            str: The first name.
+            str: The client's first name.
         """
-
+        
         return self._first_name
 
     @property
     def last_name(self) -> str:
-        """Returns the last name.
+        """Gets the client's last name.
         
         Returns:
-            str: The last name.
+            str: The client's last name.
         """
-
+        
         return self._last_name
 
     @property
     def email_address(self) -> str:
-        """Returns the email address.
+        """Gets the client's email address.
         
         Returns:
-            str: The email address.
+            str: The client's email address.
         """
-
+        
         return self._email_address
 
-    def __str__(self) -> str:
-        """Returns a string representation of the Client.
+    def update(self, message: str) -> None:
+        """Receives notifications from the bank account and simulates 
+        sending an email.
         
-        Returns:
-            str: A formatted string containing the client's last name, first 
-                name, client address, and email address.
+        Args:
+            message (str): The notification message received from the 
+                bank account.
         """
         
-        return (
-            f"{self.last_name}, {self.first_name} "
-            f"[{self.client_number}] - {self.email_address}"
-        )
-   
+        subject = f"ALERT: Unusual Activity: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        email_message = (f"Notification for {self.client_number}: {self.first_name} " 
+                         f"{self.last_name}: {message}")
+        
+        # Simulate sending an email
+        simulate_send_email(self.email_address, subject, email_message)
+
+    def __str__(self) -> str:
+        """Returns a string representation of the client.
+        
+        Returns:
+            str: The string representation of the client.
+        """
+        
+        return f"Client({self.first_name} {self.last_name}, Email: {self.email_address})"
