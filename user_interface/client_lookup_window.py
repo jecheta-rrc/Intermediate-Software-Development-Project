@@ -1,3 +1,5 @@
+"""This defines the ClientLookupWindow class."""
+
 __author__ = "ACE Faculty"
 __version__ = "1.0.0"
 __credits__ = "Nkechi Echeta"
@@ -9,16 +11,15 @@ from user_interface.manage_data import load_data
 from user_interface.account_details_window import AccountDetailsWindow
 
 class ClientLookupWindow(LookupWindow):
-    """Represents a window that allows for client lookup and account 
-    viewing.
+    """Represents a window that allows for client lookup and account viewing.
 
-    Inherits from LookupWindow which provides the GUI design and 
-    widgets.
+    Inherits from LookupWindow which provides the GUI design and widgets.
     """
 
     def __init__(self):
-        """Initializes the window, loads client/account data, and 
-        connects signals."""
+        """Initializes the window, loads client/account data, and connects 
+        signals.
+        """
 
         super().__init__()
 
@@ -29,11 +30,6 @@ class ClientLookupWindow(LookupWindow):
         self.client_number_edit.textChanged.connect(self.on_text_changed)
 
         self.account_table.cellClicked.connect(self.on_select_account)
-
-    def on_text_changed(self):
-        """Clears the client info and account table when the text input changes.
-        """
-        self.reset_display()
 
     def on_lookup_client(self):
         """Handles the logic when the lookup button is clicked."""
@@ -83,7 +79,7 @@ class ClientLookupWindow(LookupWindow):
         """Opens the account details dialog based on selected row."""
         
         account_item = self.account_table.item(row, 0)
-        
+
         if account_item is None:
             QMessageBox.information(self, "Invalid Selection", 
                                     "Please select a valid record.")
@@ -103,7 +99,7 @@ class ClientLookupWindow(LookupWindow):
 
         account = self.accounts[account_number]
 
-        # Open the details window and connect signal to update method
         details_window = AccountDetailsWindow(account)
         details_window.balance_updated.connect(self.update_data)
         details_window.exec()
+
