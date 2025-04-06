@@ -24,9 +24,6 @@ class AccountDetailsWindow(DetailsWindow):
         Args:
             account (BankaAccount): The bank account to be displayed and 
             modified.
-
-        Returns:
-            None
         """
 
         super().__init__()
@@ -92,6 +89,7 @@ class AccountDetailsWindow(DetailsWindow):
             self.transaction_amount_edit.clear()
             self.transaction_amount_edit.setFocus()
 
-
     def __on_exit(self):
-        pass
+        """Closes the dialog window."""
+        
+        self.close()
