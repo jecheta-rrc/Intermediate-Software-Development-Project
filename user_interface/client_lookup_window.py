@@ -18,7 +18,8 @@ class ClientLookupWindow(LookupWindow):
 
     def __init__(self):
         """Initializes the window, loads client/account data, and 
-        connects signals."""
+        connects signals.
+        """
 
         super().__init__()
 
@@ -30,4 +31,13 @@ class ClientLookupWindow(LookupWindow):
 
         self.account_table.cellClicked.connect(self.on_select_account)
  
-        
+    def on_lookup_client(self):
+        """Handles the logic when the lookup button is clicked."""
+
+        try:
+            client_number = int(self.client_number_edit.text())
+        except ValueError:
+            QMessageBox.information(self, "Input Error", 
+                                    "The client number must be a numeric value.")
+            self.reset_display()
+            return
