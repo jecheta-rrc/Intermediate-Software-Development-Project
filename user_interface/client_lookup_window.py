@@ -41,3 +41,25 @@ class ClientLookupWindow(LookupWindow):
                                     "The client number must be a numeric value.")
             self.reset_display()
             return
+
+        client = self.client_listing[client_number]
+        self.client_info_label.setText(f"{client.first_name} {client.last_name}")
+
+        self.account_table.setRowCount(0)
+
+        for account in self.accounts.values():
+            if account.client_number == client_number:
+                row_position = self.account_table.rowCount()
+                self.account_table.insertRow(row_position)
+
+                account_number_item = QTableWidgetItem(str(account.account_number))
+                balance_item = QTableWidgetItem(f"${account.balance:,.2f}")
+                date_item = QTableWidgetItem(str(account.date_created))
+                type_item = QTableWidgetItem(account.__class__.__name__)
+
+                self.account_table.setItem(row_position, 0, account_number_item)
+                self.account_table.setItem(row_position, 1, balance_item)
+                self.account_table.setItem(row_position, 2, date_item)
+                self.account_table.setItem(row_position, 3, type_item)
+
+        self.account_table.resizeColumnsToContents()
