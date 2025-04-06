@@ -28,3 +28,16 @@ Encapsulation in the BankAccount and Transaction classes was achieved as follows
 Polymorphism in object-oriented programming allows different classes to implement the same method in different ways. In the BankAccount class and its subclasses (ChequingAccount, SavingsAccount, InvestmentAccount), polymorphism is primarily achieved through method overriding.
 
 Assignment 4: Implementation of the Observer Pattern with Event-Driven GUI Components using PySide6.
+
+## Event-Driven Programming Paradigm
+
+This application follows the Event-Driven Programming Paradigm by responding to user interactions and internal signals through a series of event handlers and slots.
+
+Key event-driven features include:
+
+- PySide6 Signals and Slots: The application uses custom signals (e.g., 'balance_updated') to notify components when a transaction is completed, allowing the UI to refresh automatically without polling.
+- GUI Interactions: Buttons like 'lookup_button' and input fields such as 'client_number_edit' trigger event-handling methods when users enter values or click buttons.
+- Dynamic Updates: The 'AccountDetailsWindow' emits signals when transactions are applied, and these signals are connected to slots (e.g., 'update_data') in the 'ClientLookupWindow', which updates the account table and saves changes to the file.
+- Error Handling and Validation: User input errors (e.g., invalid client numbers or non-numeric values) trigger events that display 'QMessageBox' alerts and guide the user.
+
+This approach ensures the application is reactive, user-friendly, and maintainable, as components only respond to specific events rather than running in a continuous loop.
