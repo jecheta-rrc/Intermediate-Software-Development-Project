@@ -1,4 +1,3 @@
-"""Implementation of the BankAccount class with Observer pattern support."""
 """This module defines the BankAccount class, which extends Subject to notify 
 observers of account changes in the Observer Pattern.
 """
@@ -9,10 +8,6 @@ __credits__ = "ACE Faculty"
 
 from abc import ABC, abstractmethod
 from datetime import datetime, date
-from typing import TYPE_CHECKING
-from patterns.observer.subject import Subject
-
-from datetime import date
 from typing import TYPE_CHECKING
 from patterns.observer.subject import Subject
 
@@ -148,7 +143,6 @@ class BankAccount(Subject, ABC):
             amount (float): The amount to be added to the account.
 
         Raises:
-            ValueError: If 'amount' is negative or not numeric.
             ValueError: If `amount` is negative or not numeric.
         """
         

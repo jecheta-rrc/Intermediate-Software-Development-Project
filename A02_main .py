@@ -10,8 +10,6 @@ from bank_account.investment_account import InvestmentAccount
 from patterns.strategy.minimum_balance_strategy import MinimumBalanceStrategy
 from patterns.strategy.management_fee_strategy import ManagementFeeStrategy
 from datetime import date
-from patterns.strategy.minimum_balance_strategy import MinimumBalanceStrategy
-from patterns.strategy.management_fee_strategy import ManagementFeeStrategy
 from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
 from patterns.strategy.overdraft_strategy import OverdraftStrategy
 
