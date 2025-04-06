@@ -5,21 +5,20 @@ __credits__ = "Nkechi Echeta"
 from PySide6.QtWidgets import QTableWidgetItem, QMessageBox
 from PySide6.QtCore import Slot
 from ui_superclasses.lookup_window import LookupWindow
-from user_interface.account_details_window import AccountDetailsWindow
 from user_interface.manage_data import load_data
-from user_interface.manage_data import update_data
-from bank_account.bank_account import BankAccount
+from user_interface.account_details_window import AccountDetailsWindow
 
 class ClientLookupWindow(LookupWindow):
-    """Represents a window that allows for client lookup and account viewing.
+    """Represents a window that allows for client lookup and account 
+    viewing.
 
-    Inherits from LookupWindow which provides the GUI design and widgets.
+    Inherits from LookupWindow which provides the GUI design and 
+    widgets.
     """
 
     def __init__(self):
         """Initializes the window, loads client/account data, and 
-        connects signals.
-        """
+        connects signals."""
 
         super().__init__()
 
@@ -30,7 +29,12 @@ class ClientLookupWindow(LookupWindow):
         self.client_number_edit.textChanged.connect(self.on_text_changed)
 
         self.account_table.cellClicked.connect(self.on_select_account)
- 
+
+    def on_text_changed(self):
+        """Clears the client info and account table when the text input changes.
+        """
+        self.reset_display()
+
     def on_lookup_client(self):
         """Handles the logic when the lookup button is clicked."""
 
@@ -39,6 +43,11 @@ class ClientLookupWindow(LookupWindow):
         except ValueError:
             QMessageBox.information(self, "Input Error", 
                                     "The client number must be a numeric value.")
+            self.reset_display()
+            return
+
+        if client_number not in self.client_listing:
+            QMessageBox.information(self, "Not Found", f"Client number: {client_number} not found.")
             self.reset_display()
             return
 
@@ -63,3 +72,13 @@ class ClientLookupWindow(LookupWindow):
                 self.account_table.setItem(row_position, 3, type_item)
 
         self.account_table.resizeColumnsToContents()
+    
+    def on_text_changed(self):
+        """Clears the account table when client number text is changed."""
+
+        self.account_table.setRowCount(0)
+
+    @Slot(int, int)
+    def on_select_account(self, row: int, column: int):
+        """Opens the account details dialog based on selected row."""
+        pass
