@@ -48,7 +48,50 @@ class AccountDetailsWindow(DetailsWindow):
         self.exit_button.clicked.connect(self.__on_exit)
 
     def __on_apply_transaction(self):
-        pass
+        """Attempts to apply a transaction (deposit or withdrawal) and emit 
+        update signal.
+        """
+
+        try:
+            amount = float(self.transaction_amount_edit.text())
+        except ValueError:
+            QMessageBox.information(self, "Invalid Data", "Amount must be numeric.")
+            self.transaction_amount_edit.setFocus()
+            return
+
+        try:
+            sender = self.sender()
+            transaction_type = ""
+
+            if sender == self.deposit_button:
+                transaction_type = "Deposit"
+                self.account.deposit(amount)
+
+            elif sender == self.withdraw_button:
+                transaction_type = "Withdraw"
+                self.account.withdraw(amount)
+                
+                if amount > self.account.balance:
+                    raise ValueError("Insufficient funds for withdrawal.")
+
+                self.account.withdraw(amount)
+
+            else:
+                QMessageBox.warning(self, "Unknown Action", "Unknown transaction source.")
+                return
+
+            self.balance_label.setText(f"${self.account.balance:,.2f}")
+
+            self.transaction_amount_edit.clear()
+            self.transaction_amount_edit.setFocus()
+
+            self.balance_updated.emit(self.account)
+
+        except Exception as e:
+            QMessageBox.information(self, f"{transaction_type} Failed", str(e))
+            self.transaction_amount_edit.clear()
+            self.transaction_amount_edit.setFocus()
+
 
     def __on_exit(self):
         pass
