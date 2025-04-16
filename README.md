@@ -44,6 +44,7 @@ The Observer Pattern in this application ensures that bank clients receive real-
 about significant account activities. The BankAccount class acts as the Subject, maintaining a list
 of observers (clients) and notifying them of important events. The Client class, as an Observer, implements the update() method to receive alerts when a large transaction occurs or when the account balance drops below a set threshold. This design allows for a flexible and decoupled notification
 system, improving real-time communication between bank accounts and clients.
+
 Assignment 4: Implementation of the Observer Pattern with Event-Driven GUI Components using PySide6.
 
 ## Event-Driven Programming Paradigm
@@ -58,3 +59,5 @@ Key event-driven features include:
 - Error Handling and Validation: User input errors (e.g., invalid client numbers or non-numeric values) trigger events that display 'QMessageBox' alerts and guide the user.
 
 This approach ensures the application is reactive, user-friendly, and maintainable, as components only respond to specific events rather than running in a continuous loop.
+
+Assignment 5: Assignment 5: Filtering, Documentation, and Distribution – Enhanced the GUI with a filtering feature for account listings, generated HTML documentation using Sphinx, and packaged the application into a distributable installer using PyInstaller and Inno Setup.
