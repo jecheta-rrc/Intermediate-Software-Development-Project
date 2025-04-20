@@ -44,6 +44,7 @@ The Observer Pattern in this application ensures that bank clients receive real-
 about significant account activities. The BankAccount class acts as the Subject, maintaining a list
 of observers (clients) and notifying them of important events. The Client class, as an Observer, implements the update() method to receive alerts when a large transaction occurs or when the account balance drops below a set threshold. This design allows for a flexible and decoupled notification
 system, improving real-time communication between bank accounts and clients.
+
 Assignment 4: Implementation of the Observer Pattern with Event-Driven GUI Components using PySide6.
 
 ## Event-Driven Programming Paradigm
@@ -58,3 +59,20 @@ Key event-driven features include:
 - Error Handling and Validation: User input errors (e.g., invalid client numbers or non-numeric values) trigger events that display 'QMessageBox' alerts and guide the user.
 
 This approach ensures the application is reactive, user-friendly, and maintainable, as components only respond to specific events rather than running in a continuous loop.
+
+Assignment 5: Assignment 5: Filtering, Documentation, and Distribution – Enhanced the GUI with a filtering feature for account listings, generated HTML documentation using Sphinx, and packaged the application into a distributable installer using PyInstaller and Inno Setup.
+
+## Filtering
+
+The filtering feature was incorporated into the Client Lookup Window to enhance user interaction and data accessibility.
+
+Once a valid client number is entered, a list of accounts is displayed. The filtering section allows the user to narrow down this list using a combination of:
+
+- A dropdown menu (filter_combo_box) to select the filter criteria (e.g., Account Number, Balance, Date Created, Account Type).
+- A text input field (filter_edit) where the user types a keyword or number to match.
+- A button (filter_button) to apply or reset the filter.
+- A status label (filter_label) to indicate whether the data is currently filtered.
+
+Clicking "Apply Filter" hides all rows that do not match the typed input for the selected column. Clicking "Reset" clears the input and reveals all rows.
+
+This functionality is implemented through the on_filter_clicked() and toggle_filter(filter_on: bool) methods in client_lookup_window.py. It uses QTableWidget.setRowHidden() to dynamically show or hide rows based on the match.

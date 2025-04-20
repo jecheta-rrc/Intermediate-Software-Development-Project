@@ -37,7 +37,7 @@ class TestSavingsAccount(unittest.TestCase):
         )
 
     def test_init_initialize_state(self):
-        # Assert: Verify attributes through public accessors
+        # Assert
         self.assertEqual(self.account.account_number, self.account_number)
         self.assertEqual(self.account.client_number, self.client_number)
         self.assertEqual(self.account.balance, self.balance)
